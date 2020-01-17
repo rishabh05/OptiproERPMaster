@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CTRMainComponent } from '../ctrmain/ctrmain.component';
 import { Commonservice } from '../../services/commonservice.service';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
-import { CARMasterService } from '../../services/carmaster.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { CTRMasterService } from '../../services/ctrmaster.service';
 
 @Component({
   selector: 'app-ctrview',
@@ -18,7 +18,7 @@ export class CTRViewComponent implements OnInit {
   lookupfor: string;
   showLoader: boolean = false;
 
-  constructor(private ctrmasterService: CARMasterService, private commonservice: Commonservice, private router: Router, private toastr: ToastrService, private translate: TranslateService,
+  constructor(private ctrmasterService: CTRMasterService, private commonservice: Commonservice, private router: Router, private toastr: ToastrService, private translate: TranslateService,
     private ctrmainComponent: CTRMainComponent) {
     let userLang = navigator.language.split('-')[0];
     userLang = /(fr|en)/gi.test(userLang) ? userLang : 'fr';
@@ -28,16 +28,15 @@ export class CTRViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.onVendorLookupClick();
+    this.getContainerRelationship();
   }
 
   
-onVendorLookupClick() {
+getContainerRelationship() {
     this.showLoader = true;
-    this.ctrmasterService.getVendorList().subscribe(
+    this.ctrmasterService.GetDataForContainerRelationship().subscribe(
       (data: any) => {
         this.showLoader = false;
-        // console.log(data);
         if (data != undefined) {
           if (data.LICDATA != undefined && data.LICDATA[0].ErrorMsg == "7001") {
             this.commonservice.RemoveLicenseAndSignout(this.toastr, this.router,
@@ -53,8 +52,6 @@ onVendorLookupClick() {
       },
       error => {
         this.showLoader = false;
-        // console.log("Error: ", error);
-        // this.toastr.error('', error);
         if (error.error.ExceptionMessage != null && error.error.ExceptionMessage != undefined) {
           this.commonservice.unauthorizedToken(error, this.translate.instant("token_expired"));
         }

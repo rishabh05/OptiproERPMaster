@@ -6,7 +6,6 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { InboundMasterComponent } from '../inbound-master.component';
 import { StatePersistingServiceService } from '../../services/state-persisting-service.service';
-import { promise } from 'protractor';
 
 @Component({
   selector: 'app-inbound-details',
@@ -34,16 +33,15 @@ export class InboundDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.onVendorLookupClick();
+    this.GetDataForContainerType();
   }
 
 
-  onVendorLookupClick() {
+  GetDataForContainerType() {
     this.showLoader = true;
-    this.inboundService.getVendorList().subscribe(
+    this.inboundService.GetDataForContainerType().subscribe(
       (data: any) => {
         this.showLoader = false;
-        // console.log(data);
         if (data != undefined) {
           if (data.LICDATA != undefined && data.LICDATA[0].ErrorMsg == "7001") {
             this.commonservice.RemoveLicenseAndSignout(this.toastr, this.router,
@@ -59,8 +57,6 @@ export class InboundDetailsComponent implements OnInit {
       },
       error => {
         this.showLoader = false;
-        // console.log("Error: ", error);
-        // this.toastr.error('', error);
         if (error.error.ExceptionMessage != null && error.error.ExceptionMessage != undefined) {
           this.commonservice.unauthorizedToken(error, this.translate.instant("token_expired"));
         }

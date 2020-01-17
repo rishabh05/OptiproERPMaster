@@ -5,15 +5,9 @@ import { InboundMasterComponent } from '../inbound-master.component';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { AutoLot } from '../../models/Inbound/AutoLot';
-import { RowClassArgs, GridComponent } from '@progress/kendo-angular-grid';
-import { bypassSanitizationTrustResourceUrl } from '@angular/core/src/sanitization/bypass';
 import { InventoryTransferService } from '../../services/inventory-transfer.service';
 import { StatePersistingServiceService } from '../../services/state-persisting-service.service';
-import { GridSettings } from '../../interface/grid-settings.interface';
-import { ColumnSettings } from '../../interface/column-settings.interface';
-import { process } from '@progress/kendo-data-query';
-import * as $ from 'jquery';
+
 @Component({
   selector: 'app-inbound-polist',
   templateUrl: './inbound-polist.component.html',
@@ -21,18 +15,18 @@ import * as $ from 'jquery';
 })
 export class InboundPolistComponent implements OnInit {
   CT_Description: string;
-  CT_Length: string;
-  CT_Width: string;
-  CT_Height: string;
-  CT_Max_Width: string;
+  CT_Length: Number;
+  CT_Width: Number;
+  CT_Height: Number;
+  CT_Max_Width: Number;
   CT_ContainerType: string;
   CT_ROW: any;
   BtnTitle: string;
-
+  showLoader: boolean = false;
+  isUpdate: boolean = false;
 
   constructor(private inboundService: InboundService, private commonservice: Commonservice, private router: Router, private toastr: ToastrService, private translate: TranslateService,
-    private inboundMasterComponent: InboundMasterComponent, private inventoryTransferService: InventoryTransferService,
-    private persistingService: StatePersistingServiceService) {
+    private inboundMasterComponent: InboundMasterComponent) {
     let userLang = navigator.language.split('-')[0];
     userLang = /(fr|en)/gi.test(userLang) ? userLang : 'fr';
     translate.use(userLang);
@@ -49,20 +43,93 @@ export class InboundPolistComponent implements OnInit {
       this.CT_Length = this.CT_ROW[0];
       this.CT_Height = this.CT_ROW[0];
       this.CT_Max_Width = this.CT_ROW[0];
-      this.BtnTitle = "Update";//this.translate.instant("CT_Update");
+      this.isUpdate = true;
+      this.BtnTitle = this.translate.instant("CT_Update");
     }else{
-      this.BtnTitle = "Add";//this.translate.instant("CT_Add");
+      this.isUpdate = false;
+      this.BtnTitle = this.translate.instant("CT_Add");
     }
   }
 
-  onAddClick() {
-    this.inboundMasterComponent.inboundComponent = 1;
+  validateFields(): boolean{
+    if(this.CT_ContainerType == '' || this.CT_ContainerType == undefined){
+      this.toastr.error('', this.translate.instant("CT_ContainerType_Blank_Msg"));
+      return false;
+    }
+    return true;
   }
 
+  onAddClick() {
+    if(!this.validateFields()){
+      return;
+    }
+    if(this.BtnTitle == this.translate.instant("CT_Update")){
+      this.updateContainerType();
+    }else{
+      this.addContainerType();
+    }
+  }
+
+  addContainerType() {
+    this.showLoader = true;
+    this.inboundService.InsertIntoContainerType(this.CT_ContainerType, this.CT_Description, 
+      this.CT_Length, this.CT_Width, this.CT_Height, this.CT_Max_Width).subscribe(
+      (data: any) => {
+        this.showLoader = false;
+        if (data != undefined) {
+          if (data.LICDATA != undefined && data.LICDATA[0].ErrorMsg == "7001") {
+            this.commonservice.RemoveLicenseAndSignout(this.toastr, this.router,
+              this.translate.instant("CommonSessionExpireMsg"));
+            return;
+          }
+          this.inboundMasterComponent.inboundComponent = 1;
+        } else {
+          this.toastr.error('', this.translate.instant("CommonNoDataAvailableMsg"));
+        }
+      },
+      error => {
+        this.showLoader = false;
+        if (error.error.ExceptionMessage != null && error.error.ExceptionMessage != undefined) {
+          this.commonservice.unauthorizedToken(error, this.translate.instant("token_expired"));
+        }
+        else {
+          this.toastr.error('', error);
+        }
+      }
+    );
+  }
+
+  updateContainerType() {
+    this.showLoader = true;
+    this.inboundService.UpdateContainerType(this.CT_ContainerType, this.CT_Description, 
+      this.CT_Length, this.CT_Width, this.CT_Height, this.CT_Max_Width).subscribe(
+      (data: any) => {
+        this.showLoader = false;
+        if (data != undefined) {
+          if (data.LICDATA != undefined && data.LICDATA[0].ErrorMsg == "7001") {
+            this.commonservice.RemoveLicenseAndSignout(this.toastr, this.router,
+              this.translate.instant("CommonSessionExpireMsg"));
+            return;
+          }
+          this.inboundMasterComponent.inboundComponent = 1;
+        } else {
+          this.toastr.error('', this.translate.instant("CommonNoDataAvailableMsg"));
+        }
+      },
+      error => {
+        this.showLoader = false;
+        if (error.error.ExceptionMessage != null && error.error.ExceptionMessage != undefined) {
+          this.commonservice.unauthorizedToken(error, this.translate.instant("token_expired"));
+        }
+        else {
+          this.toastr.error('', error);
+        }
+      }
+    );
+  }
 
   onCancelClick() {
     this.inboundMasterComponent.inboundComponent = 1;
   }
-
 
 }

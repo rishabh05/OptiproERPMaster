@@ -13,50 +13,37 @@ export class CARMasterService {
   public config_params: any;
   public outRequest: OutRequest = new OutRequest();
 
-  // public httpOptions = {
-  //   headers: new HttpHeaders({
-  //     'Content-Type': 'application/json',
-  //     'Accept': 'application/json'
-  //   })
-  // }
-
   constructor(private httpclient: HttpClient,private commonService:Commonservice) {
     this.config_params = JSON.parse(sessionStorage.getItem('ConfigData'));
   }
 
-  getVendorList(): Observable<any> {
+  GetDataForContainerAutoRule(): Observable<any> {
     let jObject = {
-      GoodsReceiptToken: JSON.stringify([{
-        UserId: '',
-        CompanyDBId: localStorage.getItem("CompID"), WhseCode: localStorage.getItem("whseId"),
-        FuturePO: false, PO: "", GUID: localStorage.getItem("GUID"),
-        UsernameForLic: localStorage.getItem("UserId")
+      Shipment: JSON.stringify([{
+        CompanyDBId: localStorage.getItem("CompID")
       }])
     };
-    return this.httpclient.post(this.config_params.service_url + "/api/GoodReceiptPO/GetVendorList", jObject, this.commonService.httpOptions);
+    return this.httpclient.post(this.config_params.service_url + "/api/Shipment/GetDataForContainerRelationship", jObject, this.commonService.httpOptions);
   }
 
-  IsVendorExists(vendor: string):Promise<any> {
-    var jObject = { VendorCode: JSON.stringify([{ UserId: '', CompanyDBId: localStorage.getItem("CompID"), VendorCode: vendor }]) };
-    return this.httpclient.post(this.config_params.service_url + "/api/GoodReceiptPO/IsVendorExists", jObject, this.commonService.httpOptions).toPromise();
-  }
-
-  getItemList(futurepo: boolean, vendercode: string, po: string): Observable<any> {
+  InsertIntoContainerAutoRule(OPTM_RULEID: Number, OPTM_CONTTYPE: string, OPTM_PACKTYPE: Number
+    , OPTM_ADD_TOCONT: boolean): Observable<any> {
     let jObject = {
-      GoodsReceiptToken: JSON.stringify([{
-        UserId: '',
-        CompanyDBId: localStorage.getItem("CompID"), WhseCode: localStorage.getItem("whseId"),
-        VendorCode: vendercode,
-        FuturePO: futurepo, PO: po
+      Shipment: JSON.stringify([{
+        CompanyDBId: localStorage.getItem("CompID"), 
+        OPTM_RULEID: OPTM_RULEID,
+        OPTM_CONTTYPE: OPTM_CONTTYPE,
+        OPTM_PACKTYPE: OPTM_PACKTYPE, 
+        OPTM_ADD_TOCONT: OPTM_ADD_TOCONT
       }])
     };
-    return this.httpclient.post(this.config_params.service_url + "/api/GoodReceiptPO/GetItemList", jObject, this.commonService.httpOptions);
+    return this.httpclient.post(this.config_params.service_url + "/api/Shipment/InsertIntoContainerAutoRule", jObject, this.commonService.httpOptions);
   }
 
   getPOList(futurepo: boolean, vendercode: string, itemcode: string): Observable<any> {
    // console.log("get polist method :");
     let jObject = {
-      GoodsReceiptToken: JSON.stringify([{
+      Shipment: JSON.stringify([{
         UserId: '',
         CompanyDBId: localStorage.getItem("CompID"), WhseCode: localStorage.getItem("whseId"),
         ItemCode: itemcode, VendorCode: vendercode,
