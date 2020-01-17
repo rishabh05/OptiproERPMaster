@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Commonservice } from 'src/app/services/commonservice.service';
-import { TranslateService, LangChangeEvent } from '../../../node_modules/@ngx-translate/core';
+import { Commonservice } from '../services/commonservice.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard',

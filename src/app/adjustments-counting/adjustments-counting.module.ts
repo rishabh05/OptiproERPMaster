@@ -5,9 +5,9 @@ import { AdjustmentsCountingRoutingModule } from './adjustments-counting-routing
 import { PhysicalCountComponent } from './physical-count/physical-count.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { TrnaslateLazyModule } from '../../translate-lazy.module';
-import { GridModule } from '../../../node_modules/@progress/kendo-angular-grid';
-import { SharedModule } from 'src/app/shared-module/shared-module.module';
-import { FormsModule } from '../../../node_modules/@angular/forms';
+import { GridModule } from '@progress/kendo-angular-grid';
+import { SharedModule } from '../shared-module/shared-module.module';
+import { FormsModule } from '@angular/forms';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
 
 @NgModule({

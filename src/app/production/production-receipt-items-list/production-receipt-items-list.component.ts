@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
-import { ProductionService } from 'src/app/services/production.service';
-import { Commonservice } from 'src/app/services/commonservice.service';
+import { ProductionService } from '../../services/production.service';
+import { Commonservice } from '../../services/commonservice.service';
 import { Router } from '@angular/router';
-import { AutoLot } from 'src/app/models/Inbound/AutoLot';
+import { AutoLot } from '../../models/Inbound/AutoLot';
 import { RowClassArgs } from '@progress/kendo-angular-grid';
 
 @Component({

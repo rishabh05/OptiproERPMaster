@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Commonservice } from 'src/app/services/commonservice.service';
+import { Commonservice } from '../../services/commonservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { Pallet } from 'src/app/models/Inbound/Pallet';
-import { NumberFormatPipe } from 'src/app/common/number-format.pipe';
-import { PalletOperationType } from 'src/app/enums/PalletEnums';
+import { Pallet } from '../../models/Inbound/Pallet';
+import { NumberFormatPipe } from '../../common/number-format.pipe';
+import { PalletOperationType } from '../../enums/PalletEnums';
 
 @Component({
   selector: 'app-pal-split',

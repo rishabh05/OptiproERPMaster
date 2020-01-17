@@ -24,7 +24,7 @@
   "2":"Home -> Left side Menus",
   "ContainerType": "Container Type",
   "ContainerTypeRelation": "Container Type Relation",
-  "InventoryTransfer": "Inventory Transfer",
+  "ContainerAutoRule": "Container Auto Rule",
   "WarehouseTransfer": "Warehouse Transfer",
   "BinTransfer": "Bin Transfer",
   "InventoryTransferRequest": "Inventory Transfer Request",
@@ -51,6 +51,9 @@
   "CT_Add":"Add", 
   "CT_Update":"Update", 
   "CT_DeleteAll":"Delete All", 
+  "CTR_Parent_CT":"Parent Container Type", 
+  "CTRContainersPerParent":"Containers Per Parent", 
+  "CTRContainerPartofParent":"Container Part of Parent", 
 
 
   "3":"Dashboard",

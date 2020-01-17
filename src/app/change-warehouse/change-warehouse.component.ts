@@ -3,8 +3,8 @@ import { SigninService } from '../services/signin.service';
 import { Router } from '@angular/router';
 import { WHS } from '../models/account/WHS';
 import { Commonservice } from '../services/commonservice.service';
-import { ToastrService } from '../../../node_modules/ngx-toastr';
-import { TranslateService } from '../../../node_modules/@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-change-warehouse',

@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { CTRMainComponent } from '../ctrmain/ctrmain.component';
 import { Commonservice } from '../../services/commonservice.service';
-import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '../../../../node_modules/@ngx-translate/core';
+import { Router } from '../../../../node_modules/@angular/router';
+import { CARMainComponent } from '../carmain/carmain.component';
 import { CARMasterService } from '../../services/carmaster.service';
-import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { ToastrService } from '../../../../node_modules/ngx-toastr';
 
 @Component({
-  selector: 'app-ctrview',
-  templateUrl: './ctrview.component.html',
-  styleUrls: ['./ctrview.component.scss']
+  selector: 'app-carview',
+  templateUrl: './carview.component.html',
+  styleUrls: ['./carview.component.scss']
 })
-export class CTRViewComponent implements OnInit {
+export class CARViewComponent implements OnInit {
 
   showLookupLoader: boolean = true;
   serviceData: any[];
   lookupfor: string;
   showLoader: boolean = false;
 
-  constructor(private ctrmasterService: CARMasterService, private commonservice: Commonservice, private router: Router, private toastr: ToastrService, private translate: TranslateService,
-    private ctrmainComponent: CTRMainComponent) {
+  constructor(private carmasterService: CARMasterService, private commonservice: Commonservice, private router: Router, private toastr: ToastrService, private translate: TranslateService,
+    private carmainComponent: CARMainComponent) {
     let userLang = navigator.language.split('-')[0];
     userLang = /(fr|en)/gi.test(userLang) ? userLang : 'fr';
     translate.use(userLang);
@@ -34,7 +34,7 @@ export class CTRViewComponent implements OnInit {
   
 onVendorLookupClick() {
     this.showLoader = true;
-    this.ctrmasterService.getVendorList().subscribe(
+    this.carmasterService.getVendorList().subscribe(
       (data: any) => {
         this.showLoader = false;
         // console.log(data);
@@ -67,8 +67,8 @@ onVendorLookupClick() {
 
 
   getLookupValue(event) {
-    localStorage.setItem("CTR_ROW", JSON.stringify(event));
-    this.ctrmainComponent.ctrComponent = 2;
+    localStorage.setItem("CAR_ROW", JSON.stringify(event));
+    this.carmainComponent.carComponent = 2;
   }
 
   OnCancelClick() {
@@ -76,16 +76,17 @@ onVendorLookupClick() {
   }
 
   OnAddClick(){
-    localStorage.setItem("CTR_ROW", "");
-    this.ctrmainComponent.ctrComponent = 2;
+    localStorage.setItem("CAR_ROW", "");
+    this.carmainComponent.carComponent = 2;
   }
 
   onEditClick(){
-    this.ctrmainComponent.ctrComponent = 2;
+    this.carmainComponent.carComponent = 2;
   }
 
   onDeleteRowClick(){
-    this.ctrmainComponent.ctrComponent = 2;
+    this.carmainComponent.carComponent = 2;
   }
+
 
 }

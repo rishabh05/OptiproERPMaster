@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { OutboundData } from 'src/app/models/outbound/outbound-data';
-import { CommonConstants } from 'src/app/const/common-constants';
+import { OutboundData } from '../../models/outbound/outbound-data';
+import { CommonConstants } from '../../const/common-constants';
 
 @Component({
   selector: 'app-itrlist',

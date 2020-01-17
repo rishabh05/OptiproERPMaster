@@ -1,17 +1,17 @@
 import { Component, OnInit, ViewChild, ComponentFactory, Output, Input, EventEmitter, ElementRef, AfterViewInit } from '@angular/core';
-import { InboundMasterComponent } from 'src/app/inbound/inbound-master.component';
-import { Router } from '../../../../node_modules/@angular/router';
-import { InboundService } from 'src/app/services/inbound.service';
-import { Commonservice } from 'src/app/services/commonservice.service';
-import { ToastrService } from '../../../../node_modules/ngx-toastr';
-import { TranslateService, LangChangeEvent } from '../../../../node_modules/@ngx-translate/core';
-import { UOM } from 'src/app/models/Inbound/UOM';
-import { OpenPOLinesModel } from 'src/app/models/Inbound/OpenPOLinesModel';
-import { RecvingQuantityBin } from 'src/app/models/Inbound/RecvingQuantityBin';
-import { AutoLot } from 'src/app/models/Inbound/AutoLot';
+import { InboundMasterComponent } from '../inbound-master.component';
+import { Router } from '@angular/router';
+import { InboundService } from '../../services/inbound.service';
+import { Commonservice } from '../../services/commonservice.service';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { UOM } from '../../models/Inbound/UOM';
+import { OpenPOLinesModel } from '../../models/Inbound/OpenPOLinesModel';
+import { RecvingQuantityBin } from '../../models/Inbound/RecvingQuantityBin';
+import { AutoLot } from '../../models/Inbound/AutoLot';
 import { ISubscription } from 'rxjs/Subscription';
-import { ProductionService } from 'src/app/services/production.service';
-import { PalletOperationType } from 'src/app/enums/PalletEnums';
+import { ProductionService } from '../../services/production.service';
+import { PalletOperationType } from '../../enums/PalletEnums';
 
 
 

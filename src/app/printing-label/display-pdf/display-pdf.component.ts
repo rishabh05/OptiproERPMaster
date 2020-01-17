@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Commonservice } from '../../services/commonservice.service';
 import { ISubscription } from 'rxjs/Subscription';
-import { UIHelper } from 'src/app/helpers/ui.helpers';
+import { UIHelper } from '../../helpers/ui.helpers';
 
 @Component({
   selector: 'app-display-pdf',

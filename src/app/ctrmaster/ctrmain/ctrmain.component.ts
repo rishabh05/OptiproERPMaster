@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CTRMainComponent implements OnInit {
 
-  ctrComponent: Number;
+  public ctrComponent: Number;
   constructor() { }
 
   ngOnInit() {

@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductionService } from 'src/app/services/production.service';
-import { Commonservice } from 'src/app/services/commonservice.service';
+import { ProductionService } from '../../../services/production.service';
+import { Commonservice } from '../../../services/commonservice.service';
 import { RowClassArgs } from '@progress/kendo-angular-grid';
-import { TranslateService } from '../../../../../node_modules/@ngx-translate/core';
-import { ToastrService } from '../../../../../node_modules/ngx-toastr';
-import { ProductionIssueComponent } from 'src/app/production/production-issue/production-issue.component';
-import { OutboundData } from 'src/app/models/outbound/outbound-data';
-import { CommonConstants } from 'src/app/const/common-constants';
-import { Lot, Item, ProductionIssueModel } from 'src/app/models/Production/IFP';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
+import { ProductionIssueComponent } from '../production-issue.component';
+import { OutboundData } from '../../../models/outbound/outbound-data';
+import { CommonConstants } from '../../../const/common-constants';
+import { Lot, Item, ProductionIssueModel } from '../../../models/Production/IFP';
 
 
 @Component({

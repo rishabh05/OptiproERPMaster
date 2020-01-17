@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Commonservice } from 'src/app/services/commonservice.service';
+import { Commonservice } from '../../services/commonservice.service';
 import { TranslateService } from '@ngx-translate/core';
-import { PalletOperationType } from 'src/app/enums/PalletEnums';
+import { PalletOperationType } from '../../enums/PalletEnums';
 
 @Component({
   selector: 'app-split-transfer',

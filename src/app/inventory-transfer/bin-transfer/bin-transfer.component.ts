@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostListener, TemplateRef, ViewChild, ElementRef } from '@angular/core';
 import { viewLineContent } from '../../DemoData/sales-order';
 import { UIHelper } from '../../helpers/ui.helpers';
-import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal/ngx-bootstrap-modal';
+// import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal/ngx-bootstrap-modal';
 import { Commonservice } from '../../services/commonservice.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -9,7 +9,7 @@ import { InventoryTransferService } from '../../services/inventory-transfer.serv
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { Location } from '@angular/common';
-import { FieldAccessorPipe } from '@progress/kendo-angular-grid/dist/es2015/rendering/common/field-accessor.pipe';
+// import { FieldAccessorPipe } from '@progress/kendo-angular-grid/dist/es2015/rendering/common/field-accessor.pipe';
 
 @Component({
   selector: 'app-bin-transfer',
@@ -21,7 +21,6 @@ export class BinTransferComponent implements OnInit {
   isMobile: boolean;
   gridHeight: number;
   showLoader: boolean = false;
-  modalRef: BsModalRef;
   showLookupLoader: boolean = true;
   itemCode: string = "";
   lotValue: string = "";
@@ -83,7 +82,7 @@ export class BinTransferComponent implements OnInit {
   constructor(private commonservice: Commonservice, private activatedRoute: ActivatedRoute,
     private router: Router, private inventoryTransferService: InventoryTransferService,
     private toastr: ToastrService, private translate: TranslateService,
-    private modalService: BsModalService, private _location: Location, ) {
+    private _location: Location, ) {
     let userLang = navigator.language.split('-')[0];
     userLang = /(fr|en)/gi.test(userLang) ? userLang : 'fr';
     translate.use(userLang);
@@ -180,12 +179,7 @@ export class BinTransferComponent implements OnInit {
   }
 
 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template,
-      Object.assign({}, { class: 'modal-dialog-centered' })
-    );
-  }
-  @ViewChild('autoShownModal') autoShownModal: ModalDirective;
+  
   @ViewChild('transferedItemsBtn') transferedItemsBtn: ElementRef;
   isModalShown: boolean = false;
 
@@ -194,7 +188,6 @@ export class BinTransferComponent implements OnInit {
   }
 
   hideModal(): void {
-    this.autoShownModal.hide();
   }
 
   onHidden(): void {

@@ -7,7 +7,7 @@ import { SigninComponent } from './signin/signin.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
+// import { TooltipModule } from 'ngx-bootstrap/tooltip/ngx-bootstrap-tooltip';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { TrnaslateLazyModule } from '../../translate-lazy.module';
@@ -26,7 +26,7 @@ import { TrnaslateLazyModule } from '../../translate-lazy.module';
     ButtonsModule,
     DropDownsModule,
     FormsModule,
-    TooltipModule.forRoot(),
+    // TooltipModule.forRoot(),
   ],
   declarations: [SigninComponent]
   // declarations: [SignupComponent, SigninComponent, SetPasswordComponent, ResetPasswordComponent]

@@ -21,9 +21,6 @@ const routes: Routes = [
     path: '', component: PortalHomeComponent,
     children: [
       { path:'dashboard', component:DashboardComponent },
-      
-      // { path: 'salesorder', component:SalesOrderListComponent },
-      //{ path: 'form', component:FormFieldComponent },
       { path:'binTransfer', component:BinTransferComponent },
       { path:'whsTransfer', component:WhsTransferComponent },
       { path: 'InventoryTransferRequest', component:WhsTransferComponent  },
@@ -33,7 +30,8 @@ const routes: Routes = [
       { path: 'adjustment-counting', loadChildren: "../adjustments-counting/adjustments-counting.module#AdjustmentsCountingModule" }, 
       { path: 'production', loadChildren: "../production/production.module#ProductionModule" },
       { path: 'printing-label', loadChildren: "../printing-label/printing-label.module#PrintingLabelModule" },
-      { path:'ctrmaster', loadChildren: "../ctrmaster/ctrmaster.module#CTRMasterModule" },
+      { path:'containertyperelation', loadChildren: "../ctrmaster/ctrmaster.module#CTRMasterModule" },
+      { path:'containerautorule', loadChildren: "../carmaster/carmaster.module#CARMAsterModule" },
       { path:'palletization', loadChildren: "../palletization/palletization.module#PalletizationModule" },
       { path:'split-transfer', component:SplitTransferComponent },
       { path:'pallet-merge', component:PalletMergeComponent },

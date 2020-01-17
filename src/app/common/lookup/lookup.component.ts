@@ -1,9 +1,4 @@
 import { Component, OnInit, setTestabilityGetter, Input, Output, EventEmitter, ElementRef, ViewChild, HostListener } from '@angular/core';
-// import { CommonService } from '../../../services/common.service';
-// import * as XLSX from 'ts-xlsx';
-// import { FeaturemodelService } from '../../../services/featuremodel.service';
-// import { ModelbomService } from '../../../services/modelbom.service';
-// import { CommonData, ColumnSetting } from "../../../models/CommonData";
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
@@ -121,8 +116,8 @@ export class LookupComponent implements OnInit {
     else if (this.lookupfor == "CTList") {
       this.showContainerType();
     }
-    else if (this.lookupfor == "POList") {
-      this.showPOList();
+    else if (this.lookupfor == "CTRList") {
+      this.showCTRList();
     }
     else if (this.lookupfor == "POItemList") {
       this.showPOItemList();
@@ -439,6 +434,41 @@ export class LookupComponent implements OnInit {
         title: this.translate.instant("CT_Max_Width"),
         type: 'numeric',
         width: '100'
+      }
+    ];
+    this.lookupTitle = this.translate.instant("CT_ContainerType");
+    if (this.serviceData !== undefined) {
+      if (this.serviceData.length > 0) {
+        this.dialogOpened = true;
+      }
+    }
+  }
+
+  showCTRList() {
+    this.table_head = [
+      {
+        field: 'CARDCODE',
+        title: this.translate.instant("CT_ContainerType"),
+        type: 'text',
+        width: '150'
+      },
+      {
+        field: 'CARDNAME',
+        title: this.translate.instant("CTR_Parent_CT"),
+        type: 'text',
+        width: '150'
+      },
+      {
+        field: 'CARDCODE',
+        title: this.translate.instant("CTRContainersPerParent"),
+        type: 'text',
+        width: '150'
+      },
+      {
+        field: 'CARDNAME',
+        title: this.translate.instant("CTRContainerPartofParent"),
+        type: 'text',
+        width: '150'
       }
     ];
     this.lookupTitle = this.translate.instant("CT_ContainerType");

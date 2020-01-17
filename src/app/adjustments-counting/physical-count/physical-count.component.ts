@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { PhysicalcountService } from 'src/app/services/physicalcount.service';
-import { Commonservice } from 'src/app/services/commonservice.service';
-import { TranslateService, LangChangeEvent } from '../../../../node_modules/@ngx-translate/core';
-import { ToastrService } from '../../../../node_modules/ngx-toastr';
+import { PhysicalcountService } from '../../services/physicalcount.service';
+import { Commonservice } from '../../services/commonservice.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 import { storeCleanupWithContext } from '@angular/core/src/render3/instructions';
 
 @Component({

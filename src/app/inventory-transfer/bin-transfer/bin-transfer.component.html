@@ -391,48 +391,9 @@
         </div>
     </form>
 
-    <ng-template #template>
-        <div class="modal-header">
-            <h4 class="modal-title pull-left">{{'Confirm'|translate}}</h4>
-            <button id="modalCloseBtn" type="button" class="close pull-right" aria-label="Close"
-                (mousedown)="modalRef.hide()">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            {{'DeleteAllLines'|translate}}
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary k-button btn-sm" type="button"
-                (mousedown)="deleteAllOkClick()">{{'Ok'|translate}}</button>
-            <button class="btn btn-default k-button btn-sm" type="button"
-                (mousedown)="modalRef.hide()">{{'Cancel'|translate}}</button>
-        </div>
-    </ng-template>
+    
 </div>
 
-<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
-    class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 id="dialog-auto-name" class="modal-title pull-left">{{'Confirm'|translate}}</h4>
-                <button type="button" class="close pull-right" aria-label="Close" (mousedown)="hideModal()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                {{ModalContent}}
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary k-button btn-sm" type="button"
-                    #transferedItemsBtn>{{'Ok'|translate}}</button>
-                <button class="btn btn-default k-button btn-sm" type="button"
-                    (mousedown)="hideModal()">{{'Cancel'|translate}}</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <kendo-dialog [width]="750" *ngIf="dialogOpened" (close)="close('dialog')" [minWidth]="250">
     <kendo-dialog-titlebar>

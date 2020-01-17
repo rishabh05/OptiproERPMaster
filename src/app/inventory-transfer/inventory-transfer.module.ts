@@ -5,7 +5,7 @@ import { BinTransferComponent } from './bin-transfer/bin-transfer.component';
 import { TrnaslateLazyModule } from '../../translate-lazy.module';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { GridModule } from '@progress/kendo-angular-grid';
-import { ModalModule } from 'ngx-bootstrap/modal';
+// import { ModalModule } from 'ngx-bootstrap/modal/ngx-bootstrap-modal';
 import { SharedModule } from '../shared-module/shared-module.module';
 import { FormsModule } from '@angular/forms';
 import { InventoryTransferRoutingModule } from './inventory-transfer-routing.module';
@@ -27,7 +27,7 @@ import { OutboundModule } from '../outbound/outbound.module';
     InventoryTransferRoutingModule,
     DialogsModule,
     OutboundModule,
-    ModalModule.forRoot()
+    // ModalModule.forRoot()
   ]
 })
 export class InventoryTransferModule { }

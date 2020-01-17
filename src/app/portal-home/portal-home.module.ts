@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown/ngx-bootstrap-dropdown';
+// import { BsDropdownModule } from 'ngx-bootstrap/dropdown/ngx-bootstrap-dropdown';
 
 import 'hammerjs';
 
@@ -27,6 +27,7 @@ import { GridModule } from '@progress/kendo-angular-grid';
 import { SharedModule } from '../shared-module/shared-module.module';
 import { PalletizationModule } from '../palletization/palletization.module';
 import { CTRMasterModule } from '../ctrmaster/ctrmaster.module';
+import { CARMAsterModule } from '../carmaster/carmaster.module';
 
 @NgModule({
   imports: [
@@ -35,7 +36,7 @@ import { CTRMasterModule } from '../ctrmaster/ctrmaster.module';
 
     // BS
     AngularSvgIconModule, 
-    BsDropdownModule.forRoot(),
+    // BsDropdownModule.forRoot(),
     PerfectScrollbarModule,
     TrnaslateLazyModule,
     DropDownsModule,
@@ -51,6 +52,7 @@ import { CTRMasterModule } from '../ctrmaster/ctrmaster.module';
     InboundModule,
     OutboundModule,
     CTRMasterModule,
+    CARMAsterModule,
     InventoryTransferModule,
     PalletizationModule
   ],

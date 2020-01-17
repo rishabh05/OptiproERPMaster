@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OutboundService } from 'src/app/services/outbound.service';
+import { OutboundService } from '../../services/outbound.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
-import { Commonservice } from 'src/app/services/commonservice.service';
+import { Commonservice } from '../../services/commonservice.service';
 import { Router } from '@angular/router';
-import { OutboundData, CurrentOutBoundData } from 'src/app/models/outbound/outbound-data';
-import { CommonConstants } from 'src/app/const/common-constants';
-import { SOHEADER, SODETAIL, DeliveryToken } from 'src/app/models/outbound/out-del-req';
+import { OutboundData, CurrentOutBoundData } from '../../models/outbound/outbound-data';
+import { CommonConstants } from '../../const/common-constants';
+import { SOHEADER, SODETAIL, DeliveryToken } from '../../models/outbound/out-del-req';
 
 
 

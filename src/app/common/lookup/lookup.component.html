@@ -1,9 +1,4 @@
-<!-- Grid Modal-->
-<!-- <kendo-dialog [width]="750"  *ngIf="dialogOpened" (close)="close_kendo_dialog()"> -->
 
-<kendo-dialog-titlebar>
-    {{lookupTitle}}
-</kendo-dialog-titlebar>
 <kendo-grid [kendoGridBinding]="serviceData" [filterable]=isColumnFilter [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort"
     [filter]="state.filter" [resizable]="true" [skip]="skip" (selectionChange)="on_item_select($event)" style="max-height:400px"
     class="no-shadow" [pageSize]="lookupPageSize" [pageable]="lookupPagable">
@@ -29,7 +24,7 @@
     </ng-template>
 
 
-    <kendo-grid-checkbox-column *ngIf="showSelection==true" title="Select" [width]="25">
+    <kendo-grid-checkbox-column title="Select" [width]="25">
         <ng-template kendoGridHeaderTemplate let-column let-rowIndex="rowIndex">
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" name="parent_checkbox" #Selectallcheckedvalue (change)="on_Selectall_checkbox_checked(Selectallcheckedvalue.checked)"
@@ -51,7 +46,7 @@
         class={{column.class}}></kendo-grid-column>
 
     <kendo-grid-column [sortable]="false" title="Action" filter="numeric" [filterable]="false">
-        <ng-template kendoGridCellTemplate let-dataItem>
+        <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
             <button type="button" class="btn btn-sm mr-10 " (click)="onEditClick(dataItem)" title="Action">
                 <i class="opti-icon-arrow-next"></i>
             </button>
