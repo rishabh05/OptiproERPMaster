@@ -28,16 +28,14 @@ export class CARViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.onVendorLookupClick();
+    this.GetDataForContainerAutoRule();
   }
 
-  
-onVendorLookupClick() {
+  GetDataForContainerAutoRule() {
     this.showLoader = true;
-    this.carmasterService.getVendorList().subscribe(
+    this.carmasterService.GetDataForContainerAutoRule().subscribe(
       (data: any) => {
         this.showLoader = false;
-        // console.log(data);
         if (data != undefined) {
           if (data.LICDATA != undefined && data.LICDATA[0].ErrorMsg == "7001") {
             this.commonservice.RemoveLicenseAndSignout(this.toastr, this.router,
@@ -53,8 +51,6 @@ onVendorLookupClick() {
       },
       error => {
         this.showLoader = false;
-        // console.log("Error: ", error);
-        // this.toastr.error('', error);
         if (error.error.ExceptionMessage != null && error.error.ExceptionMessage != undefined) {
           this.commonservice.unauthorizedToken(error, this.translate.instant("token_expired"));
         }

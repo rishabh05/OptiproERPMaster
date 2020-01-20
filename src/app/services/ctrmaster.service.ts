@@ -13,44 +13,43 @@ export class CTRMasterService {
   public config_params: any;
   public outRequest: OutRequest = new OutRequest();
 
-  // public httpOptions = {
-  //   headers: new HttpHeaders({
-  //     'Content-Type': 'application/json',
-  //     'Accept': 'application/json'
-  //   })
-  // }
-
   constructor(private httpclient: HttpClient,private commonService:Commonservice) {
     this.config_params = JSON.parse(sessionStorage.getItem('ConfigData'));
   }
 
-  getVendorList(): Observable<any> {
+  GetDataForContainerRelationship(): Observable<any> {
     let jObject = {
-      GoodsReceiptToken: JSON.stringify([{
-        UserId: '',
-        CompanyDBId: localStorage.getItem("CompID"), WhseCode: localStorage.getItem("whseId"),
-        FuturePO: false, PO: "", GUID: localStorage.getItem("GUID"),
-        UsernameForLic: localStorage.getItem("UserId")
+      Shipment: JSON.stringify([{
+        CompanyDBId: localStorage.getItem("CompID")
       }])
     };
-    return this.httpclient.post(this.config_params.service_url + "/api/GoodReceiptPO/GetVendorList", jObject, this.commonService.httpOptions);
+    return this.httpclient.post(this.config_params.service_url + "/api/Shipment/GetDataForContainerRelationship", jObject, this.commonService.httpOptions);
   }
 
-  IsVendorExists(vendor: string):Promise<any> {
-    var jObject = { VendorCode: JSON.stringify([{ UserId: '', CompanyDBId: localStorage.getItem("CompID"), VendorCode: vendor }]) };
-    return this.httpclient.post(this.config_params.service_url + "/api/GoodReceiptPO/IsVendorExists", jObject, this.commonService.httpOptions).toPromise();
-  }
-
-  getItemList(futurepo: boolean, vendercode: string, po: string): Observable<any> {
+  InsertIntoContainerRelationship(OPTM_CONTAINER_TYPE: string, OPTM_PARENT_CONTTYPE: string, OPTM_CONT_PERPARENT: Number, OPTM_CONT_PARTOFPARENT:Number): Observable<any> {
     let jObject = {
-      GoodsReceiptToken: JSON.stringify([{
-        UserId: '',
-        CompanyDBId: localStorage.getItem("CompID"), WhseCode: localStorage.getItem("whseId"),
-        VendorCode: vendercode,
-        FuturePO: futurepo, PO: po
+      Shipment: JSON.stringify([{
+        CompanyDBId: localStorage.getItem("CompID"), 
+        OPTM_CONTAINER_TYPE: OPTM_CONTAINER_TYPE,
+        OPTM_PARENT_CONTTYPE: OPTM_PARENT_CONTTYPE,
+        OPTM_CONT_PERPARENT: OPTM_CONT_PERPARENT, 
+        OPTM_CONT_PARTOFPARENT: OPTM_CONT_PARTOFPARENT
       }])
     };
-    return this.httpclient.post(this.config_params.service_url + "/api/GoodReceiptPO/GetItemList", jObject, this.commonService.httpOptions);
+    return this.httpclient.post(this.config_params.service_url + "/api/Shipment/InsertIntoContainerRelationship", jObject, this.commonService.httpOptions);
+  }
+
+  UpdateContainerRelationship(OPTM_CONTAINER_TYPE: string, OPTM_PARENT_CONTTYPE: string, OPTM_CONT_PERPARENT: Number, OPTM_CONT_PARTOFPARENT:Number): Observable<any> {
+    let jObject = {
+      Shipment: JSON.stringify([{
+        CompanyDBId: localStorage.getItem("CompID"), 
+        OPTM_CONTAINER_TYPE: OPTM_CONTAINER_TYPE,
+        OPTM_PARENT_CONTTYPE: OPTM_PARENT_CONTTYPE,
+        OPTM_CONT_PERPARENT: OPTM_CONT_PERPARENT, 
+        OPTM_CONT_PARTOFPARENT: OPTM_CONT_PARTOFPARENT
+      }])
+    };
+    return this.httpclient.post(this.config_params.service_url + "/api/Shipment/UpdateContainerRelationship", jObject, this.commonService.httpOptions);
   }
 
   getPOList(futurepo: boolean, vendercode: string, itemcode: string): Observable<any> {

@@ -119,8 +119,8 @@ export class LookupComponent implements OnInit {
     else if (this.lookupfor == "CTRList") {
       this.showCTRList();
     }
-    else if (this.lookupfor == "POItemList") {
-      this.showPOItemList();
+    else if (this.lookupfor == "CARList") {
+      this.showCARList();
     }
     else if (this.lookupfor == "out-customer") {
       this.showCustomerList();
@@ -463,13 +463,67 @@ export class LookupComponent implements OnInit {
       {
         field: 'CARDCODE',
         title: this.translate.instant("CTRContainersPerParent"),
-        type: 'text',
+        type: 'numeric',
         width: '150'
       },
       {
         field: 'CARDNAME',
         title: this.translate.instant("CTRContainerPartofParent"),
+        type: 'numeric',
+        width: '150'
+      }
+    ];
+    this.lookupTitle = this.translate.instant("CT_ContainerType");
+    if (this.serviceData !== undefined) {
+      if (this.serviceData.length > 0) {
+        this.dialogOpened = true;
+      }
+    }
+  }
+
+  showCARList() {
+    this.table_head = [
+      {
+        field: 'CARDNAME',
+        title: this.translate.instant("CAR_CPackRule"),
+        type: 'numeric',
+        width: '150'
+      },
+      {
+        field: 'CARDCODE',
+        title: this.translate.instant("CT_ContainerType"),
         type: 'text',
+        width: '150'
+      },
+
+      {
+        field: 'CARDCODE',
+        title: this.translate.instant("CAR_PackType"),
+        type: 'numeric',
+        width: '150'
+      },
+      {
+        field: 'CARDNAME',
+        title: this.translate.instant("CAR_ItemCode"),
+        type: 'text',
+        width: '150'
+      },
+      {
+        field: 'CARDCODE',
+        title: this.translate.instant("CAR_PartsPerContainer"),
+        type: 'numeric',
+        width: '150'
+      },
+      {
+        field: 'CARDNAME',
+        title: this.translate.instant("CAR_AddPartsToContainer"),
+        type: 'boolean',
+        width: '150'
+      },
+      {
+        field: 'CARDNAME',
+        title: this.translate.instant("CAR_MinFillPercent"),
+        type: 'numeric',
         width: '150'
       }
     ];

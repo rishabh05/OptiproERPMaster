@@ -51,10 +51,19 @@
   "CT_Add":"Add", 
   "CT_Update":"Update", 
   "CT_DeleteAll":"Delete All", 
+  "CT_ContainerType_Blank_Msg":"Container Type cann't blank.", 
+
   "CTR_Parent_CT":"Parent Container Type", 
   "CTRContainersPerParent":"Containers Per Parent", 
   "CTRContainerPartofParent":"Container Part of Parent", 
+  "CTR_ParentContainerType_Blank_Msg":"Parent Container Type cann't blank.", 
 
+  "CAR_CPackRule":"Container Pack Rule", 
+  "CAR_PackType":"Pack Type", 
+  "CAR_PartsPerContainer":"Parts Per Container", 
+  "CAR_ItemCode":"Item Code", 
+  "CAR_AddPartsToContainer":"Add Parts To Container", 
+  "CAR_MinFillPercent":"Min Fill Percent", 
 
   "3":"Dashboard",
   "Dashboard_AppVersion":"Version: ",
