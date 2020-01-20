@@ -28,6 +28,7 @@ import { SharedModule } from '../shared-module/shared-module.module';
 import { PalletizationModule } from '../palletization/palletization.module';
 import { CTRMasterModule } from '../ctrmaster/ctrmaster.module';
 import { CARMAsterModule } from '../carmaster/carmaster.module';
+import { DockDoorModule } from '../dock-door/dock-door.module';
 
 @NgModule({
   imports: [
@@ -48,7 +49,7 @@ import { CARMAsterModule } from '../carmaster/carmaster.module';
     CommonModule, 
     GridModule,
     SharedModule,
-
+    DockDoorModule,
     InboundModule,
     OutboundModule,
     CTRMasterModule,
@@ -60,3 +61,4 @@ import { CARMAsterModule } from '../carmaster/carmaster.module';
   providers:[DashboardComponent ]
 })
 export class PortalHomeModule { }
+ 

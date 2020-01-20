@@ -432,6 +432,11 @@
   "Plt_MergeErrMsg": "System is facing problem in merge operation. Please try again.",
   "Plt_PalletizeErrMsg": "System is facing problem in palletize operation. Please try again.",
   "Plt_TransferErrMsg": "System is facing problem in transfer operation. Please try again.",
-
+ 
+  "Dock_Door": "Dock Door",
+  
+  "DD_ID": "Dock Door Id",
+  "DD_DESC": "Dock Door Description",
+ 
   "Dummy": "Dummy"
 }

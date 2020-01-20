@@ -155,6 +155,8 @@ export class LookupComponent implements OnInit {
       this.palletList();
     } else if(this.lookupfor == "ITRList"){
       this.showITRList();
+    } else if (this.lookupfor == "DDList") {
+      this.showDDList();
     }
 
     this.clearFilters();
@@ -472,6 +474,30 @@ export class LookupComponent implements OnInit {
       }
     ];
     this.lookupTitle = this.translate.instant("CT_ContainerType");
+    if (this.serviceData !== undefined) {
+      if (this.serviceData.length > 0) {
+        this.dialogOpened = true;
+      }
+    }
+  }
+
+
+  showDDList() {
+    this.table_head = [
+      {
+        field: 'CARDCODE',
+        title: this.translate.instant("DD_ID"),
+        type: 'text',
+        width: '150'
+      },
+      {
+        field: 'CARDNAME',
+        title: this.translate.instant("DD_DESC"),
+        type: 'text',
+        width: '150'
+      }
+    ];
+    this.lookupTitle = this.translate.instant("Dock_Door");
     if (this.serviceData !== undefined) {
       if (this.serviceData.length > 0) {
         this.dialogOpened = true;

@@ -37,6 +37,8 @@ const routes: Routes = [
       { path:'pallet-merge', component:PalletMergeComponent },
       { path:'depalletize', component:DepalletizeComponent },
       { path:'palletize', component:PalletizeComponent },
+      { path:'dockdoor', loadChildren:"../dock-door/dock-door.module#DockDoorModule"},
+      
     ]
     
   }
