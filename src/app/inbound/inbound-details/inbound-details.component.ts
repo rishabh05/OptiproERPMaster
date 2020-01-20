@@ -49,7 +49,7 @@ export class InboundDetailsComponent implements OnInit {
             return;
           }
           this.showLookupLoader = false;
-          this.serviceData = data.Table;
+          this.serviceData = data;
           this.lookupfor = "CTList";
         } else {
           this.toastr.error('', this.translate.instant("CommonNoDataAvailableMsg"));

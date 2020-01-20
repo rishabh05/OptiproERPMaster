@@ -400,38 +400,46 @@ export class LookupComponent implements OnInit {
   showContainerType() {
     this.table_head = [
       {
-        field: 'CARDCODE',
+        field: 'OPTM_CONTAINER_TYPE',
         title: this.translate.instant("CT_ContainerType"),
         type: 'text',
         width: '100'
       },
       {
-        field: 'CARDNAME',
+        field: 'OPTM_DESC',
         title: this.translate.instant("CT_Description"),
         type: 'text',
         width: '100'
       },
       {
-        field: 'CARDCODE',
+        field: 'OPTM_LENGTH',
         title: this.translate.instant("CT_Length"),
+        headerClass: 'text-right',
+        class: 'text-right',
         type: 'numeric',
         width: '100'
       },
       {
-        field: 'CARDNAME',
+        field: 'OPTM_WIDTH',
         title: this.translate.instant("CT_Width"),
+        headerClass: 'text-right',
+        class: 'text-right',
         type: 'numeric',
         width: '100'
       },
       {
-        field: 'CARDCODE',
+        field: 'OPTM_HEIGHT',
         title: this.translate.instant("CT_Height"),
+        headerClass: 'text-right',
+        class: 'text-right',
         type: 'numeric',
         width: '100'
       },
       {
-        field: 'CARDNAME',
+        field: 'OPTM_MAXWEIGHT',
         title: this.translate.instant("CT_Max_Width"),
+        headerClass: 'text-right',
+        class: 'text-right',
         type: 'numeric',
         width: '100'
       }

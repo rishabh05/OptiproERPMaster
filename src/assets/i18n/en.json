@@ -47,7 +47,7 @@
   "CT_Length":"Length", 
   "CT_Width":"Width", 
   "CT_Height":"Height", 
-  "CT_Max_Width":"Max_Width", 
+  "CT_Max_Width":"Max Weight", 
   "CT_Add":"Add", 
   "CT_Update":"Update", 
   "CT_DeleteAll":"Delete All", 
@@ -64,6 +64,10 @@
   "CAR_ItemCode":"Item Code", 
   "CAR_AddPartsToContainer":"Add Parts To Container", 
   "CAR_MinFillPercent":"Min Fill Percent", 
+
+  "Edit":"Edit",
+  "Copy":"Copy",
+  "Delete": "Delete",
 
   "3":"Dashboard",
   "Dashboard_AppVersion":"Version: ",
@@ -232,7 +236,7 @@
   "UOM": "UOM",
   "Manual": "Manual",
   "Quantity": "Quantity",
-  "DeleteAll": "Delete all",
+
   "Close": "Close",
   "Confirm": "Confirm",
   "Receive": "Receive",

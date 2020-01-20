@@ -35,14 +35,15 @@ export class InboundPolistComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.CT_ROW = JSON.parse(localStorage.getItem("CT_ROW"));
-    if(this.CT_ROW != undefined && this.CT_ROW != ""){
+    let CtRow = localStorage.getItem("CT_ROW")
+    if(CtRow != undefined && CtRow != ""){
+      this.CT_ROW = JSON.parse(localStorage.getItem("CT_ROW"));
       this.CT_ContainerType = this.CT_ROW[0];
-      this.CT_Description = this.CT_ROW[0];
-      this.CT_Width = this.CT_ROW[0];
-      this.CT_Length = this.CT_ROW[0];
-      this.CT_Height = this.CT_ROW[0];
-      this.CT_Max_Width = this.CT_ROW[0];
+      this.CT_Description = this.CT_ROW[1];
+      this.CT_Width = this.CT_ROW[2];
+      this.CT_Length = this.CT_ROW[3];
+      this.CT_Height = this.CT_ROW[4];
+      this.CT_Max_Width = this.CT_ROW[5];
       this.isUpdate = true;
       this.BtnTitle = this.translate.instant("CT_Update");
     }else{
@@ -59,7 +60,7 @@ export class InboundPolistComponent implements OnInit {
     return true;
   }
 
-  onAddClick() {
+  onAddUpdateClick() {
     if(!this.validateFields()){
       return;
     }
@@ -81,6 +82,11 @@ export class InboundPolistComponent implements OnInit {
             this.commonservice.RemoveLicenseAndSignout(this.toastr, this.router,
               this.translate.instant("CommonSessionExpireMsg"));
             return;
+          }
+          if(data[0].RESULT == "Data Saved"){
+            this.toastr.error('', data[0].RESULT);
+          }else{
+            this.toastr.error('', data[0].RESULT);
           }
           this.inboundMasterComponent.inboundComponent = 1;
         } else {

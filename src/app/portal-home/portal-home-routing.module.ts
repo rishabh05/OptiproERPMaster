@@ -26,7 +26,7 @@ const routes: Routes = [
       { path: 'InventoryTransferRequest', component:WhsTransferComponent  },
       { path: 'InventoryTransferbyITR', component:InventoryTransferbyITRMasterComponent  },
       { path:'changeWarehouse', component:ChangeWarehouseComponent },
-      { path:'inbound', loadChildren:"../inbound/inbound.module#InboundModule"},     
+      { path:'containertype', loadChildren:"../inbound/inbound.module#InboundModule"},     
       { path: 'adjustment-counting', loadChildren: "../adjustments-counting/adjustments-counting.module#AdjustmentsCountingModule" }, 
       { path: 'production', loadChildren: "../production/production.module#ProductionModule" },
       { path: 'printing-label', loadChildren: "../printing-label/printing-label.module#PrintingLabelModule" },
