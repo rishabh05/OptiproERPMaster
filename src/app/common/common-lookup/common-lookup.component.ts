@@ -109,7 +109,7 @@ export class CommonLookupComponent implements OnInit {
     } else if (this.lookupfor == "BatchNoList" || this.lookupfor == "BatchNoList2") {
       this.showBatchNoList();
     }
-    else if (this.lookupfor == "CTList") {
+    else if (this.lookupfor == "CTList" || this.lookupfor == "PCTList") {
       this.showContainerType();
     } else if (this.lookupfor == "SBTrackFromBin") {
       this.showSBTrackFromBinList();

@@ -670,4 +670,13 @@ export class Commonservice {
     };
     return this.httpclient.post(this.config_params.service_url + "/api/Shipment/IsValidContainerType", jObject, this.httpOptions);
   }
+
+  GetItemCodeList(): Observable<any> {
+    let jObject = {
+      Shipment: JSON.stringify([{
+        CompanyDBId: localStorage.getItem("CompID")
+      }])
+    };
+    return this.httpclient.post(this.config_params.service_url + "/api/Shipment/GetItemCodeList", jObject, this.httpOptions);
+  }
 }

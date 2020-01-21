@@ -12,9 +12,8 @@
                         <label for="inputPassword" class="col-sm-3 col-form-label">{{'CAR_CPackRule'|translate}}</label>
                         <div class="col-sm-9">
                             <div class="input-group input-group-sm">
-                                <input type="number" class="form-control form-control-sm" min="0" name="CAR_CPackRule" [(ngModel)]="CAR_CPackRule" 
-                                placeholder="{{'CAR_CPackRule'|translate}}"
-                                [disabled]=isUpdate>
+                                <input type="number" class="form-control form-control-sm" min="0" name="CAR_CPackRule" [(ngModel)]="CAR_CPackRule" placeholder="{{'CAR_CPackRule'|translate}}"
+                                    [disabled]=isUpdate>
                             </div>
                         </div>
                     </div>
@@ -38,7 +37,7 @@
                             <span class="opti_form-label">{{'CAR_PackType'|translate}}</span>
                         </label>
                         <div class="col-sm-9">
-                            <kendo-dropdownlist [data]="PackTypeList"  id="CAR_PackType" name="CAR_PackType" [(ngModel)]="CAR_PackType" [disabled]=isUpdate>
+                            <kendo-dropdownlist [data]="PackTypeList" id="CAR_PackType" name="CAR_PackType" [(ngModel)]="CAR_PackType" [disabled]=isUpdate>
                             </kendo-dropdownlist>
                         </div>
                     </div>
@@ -47,8 +46,8 @@
                         <label for="inputPassword" class="col-sm-3 col-form-label">{{'CAR_AddPartsToContainer'|translate}}</label>
                         <div class="col-sm-9">
                             <div class="opti_input-group-checkbox">
-                                <input type="checkbox" id="ch7" name='CAR_AddPartsToContainer' [(ngModel)]="CAR_AddPartsToContainer" [disabled]=isUpdate class="k-checkbox" checked
-                                />
+                                <input type="checkbox" id="ch7" name='CAR_AddPartsToContainer' [(ngModel)]="CAR_AddPartsToContainer" [disabled]=isUpdate
+                                    class="k-checkbox" checked />
                                 <label class="k-checkbox-label" for="ch7"></label>
                             </div>
                         </div>
@@ -104,17 +103,27 @@
                                 </kendo-grid-column> -->
                         <!-- grid for mobile end -->
 
-                        <kendo-grid-column media="(min-width: 768px)" field="ruleId" [width]="18" title="{{'CAR_CPackRule'|translate}}">
+                        <!-- <kendo-grid-column media="(min-width: 768px)" field="ruleId" [width]="18" title="{{'CAR_CPackRule'|translate}}">
                             <ng-template kendoGridCellTemplate let-dataItem let-idx='rowIndex'>
                                 <input type="number" class="text-right form-control form-control-sm" name="dataItem.ruleId" value={{dataItem.ruleId}} id="display_name"
                                     min="0" #display_name (change)="updateRuleId(display_name, display_name.value, idx)">
                             </ng-template>
-                        </kendo-grid-column>
+                        </kendo-grid-column> -->
 
                         <kendo-grid-column media="(min-width: 768px)" field="itemcode" [width]="18" title="{{'CAR_ItemCode'|translate}}">
                             <ng-template kendoGridCellTemplate let-dataItem let-idx='rowIndex'>
-                                <input type="text" class="form-control form-control-sm" name="dataItem.itemcode" value={{dataItem.itemcode}} id="display_name"
-                                    min="0" #display_name (change)="updateItemCode(display_name, display_name.value, idx)">
+
+                                    <!-- (change)="updateItemCode(display_name, display_name.value, idx)" -->
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control form-control-sm" name="dataItem.itemcode" value={{dataItem.itemcode}} id="display_name"
+                                        min="0" #display_name >
+                                    <div class="input-group-append">
+                                        <button tabIndex="-1" class="k-button k-primary btn" type="button" (mousedown)="GetItemCodeList(idx)">
+                                            <i class="opti-icon-hammenu"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
                             </ng-template>
                         </kendo-grid-column>
 
@@ -123,7 +132,6 @@
                                 <input type="text" class="text-right form-control form-control-sm" name="dataItem.partperCont" value={{dataItem.partperCont}}
                                     id="display_name" min="0" #display_name (change)="updatePartperCont(display_name, display_name.value, idx)">
                             </ng-template>
-
                         </kendo-grid-column>
 
                         <kendo-grid-column media="(min-width: 768px)" field="minfill" headerClass="text-right" class="text-center" [width]="18" title="{{'CAR_MinFillPercent'|translate}}">

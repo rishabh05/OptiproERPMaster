@@ -20,7 +20,6 @@ export class CARUpdateComponent implements OnInit {
   CAR_PartsPerContainer: Number;
   CAR_MinFillPercent: Number;
   CAR_PackType = "Single Item";
-  
   lookupfor: string;
   BtnTitle: string;
 
@@ -33,6 +32,7 @@ export class CARUpdateComponent implements OnInit {
   showLoader: boolean = false;
   isUpdate: boolean = false;
   hideLookup: boolean = true;
+  index: number=-1;
 
   constructor(private commonservice: Commonservice, private toastr: ToastrService,
     private translate: TranslateService, private carmainComponent: CARMainComponent,
@@ -50,11 +50,21 @@ export class CARUpdateComponent implements OnInit {
     if (Carow != undefined && Carow != "") {
       this.CTR_ROW = JSON.parse(localStorage.getItem("CAR_ROW"));
       this.CAR_CPackRule = this.CTR_ROW[0];
-      this.CAR_ContainerType = this.CTR_ROW[0];
-      this.CAR_PackType = this.CTR_ROW[0];
-      this.CAR_ItemCode = this.CTR_ROW[0];
-      this.CAR_PartsPerContainer = this.CTR_ROW[0];
-      this.CAR_MinFillPercent = this.CTR_ROW[0];
+      this.CAR_ContainerType = this.CTR_ROW[1];
+      // this.CAR_PackType = this.CTR_ROW[2];
+      if(this.CTR_ROW[2] == 1){
+        this.CAR_PackType = "Single Item";
+      }else{
+        this.CAR_PackType = "Multiple Items";
+      }
+      if(this.CTR_ROW[3] == 'Y'){
+        this.CAR_AddPartsToContainer = true;
+      }else{
+        this.CAR_AddPartsToContainer = false;
+      }
+      // this.CAR_ItemCode = this.CTR_ROW[0];
+      // this.CAR_PartsPerContainer = this.CTR_ROW[0];
+      // this.CAR_MinFillPercent = this.CTR_ROW[0];
       this.isUpdate = true;
       this.BtnTitle = this.translate.instant("CT_Update");
     } else {
@@ -80,14 +90,13 @@ export class CARUpdateComponent implements OnInit {
       this.toastr.error('', this.translate.instant("CAR_Pack_Type_Blank_Msg"));
       return false;
     }
-    else if (this.CAR_ItemCode == '' || this.CAR_ItemCode == undefined) {
-      this.toastr.error('', this.translate.instant("CAR_ItemCode_Blank_Msg"));
-      return false;
-    }
     return true;
   }
 
   OnContainerTypeChange(){
+    if(this.CAR_ContainerType == undefined || this.CAR_ContainerType == ""){
+      return;
+    }
     this.showLoader = true;
     this.commonservice.IsValidContainerType(this.CAR_ContainerType).subscribe(
       (data: any) => {
@@ -98,8 +107,14 @@ export class CARUpdateComponent implements OnInit {
               this.translate.instant("CommonSessionExpireMsg"));
             return;
           }
-          this.CAR_ContainerType = data;
+          if(data.length > 0){
+            this.CAR_ContainerType = data[0].OPTM_CONTAINER_TYPE;
+          }else{
+            this.CAR_ContainerType = "";
+            this.toastr.error('', this.translate.instant("CommonNoDataAvailableMsg"));
+          }
         } else {
+          this.CAR_ContainerType = "";
           this.toastr.error('', this.translate.instant("CommonNoDataAvailableMsg"));
         }
       },
@@ -156,18 +171,19 @@ export class CARUpdateComponent implements OnInit {
       packtype = 2;
     }
     oSubmitPOLotsObj.Header.push({
-      DiServerToken: localStorage.getItem("Token"),
+      
       OPTM_RULEID: this.CAR_CPackRule,
       OPTM_CONTTYPE: this.CAR_ContainerType,
       CompanyDBId: localStorage.getItem("CompID"),
       OPTM_PACKTYPE: packtype,
+      OPTM_ADD_TOCONT: this.CAR_AddPartsToContainer,
       OPTM_CREATEDBY: localStorage.getItem("UserId")
     });
 
     for (var iBtchIndex = 0; iBtchIndex < this.autoRuleArray.length; iBtchIndex++) {
       oSubmitPOLotsObj.Details.push({
         OPTM_ITEMCODE: this.autoRuleArray[iBtchIndex].itemcode,
-        OPTM_RULEID: this.autoRuleArray[0].ruleId,
+        OPTM_RULEID: this.CAR_CPackRule,
         OPTM_PARTS_PERCONT: this.autoRuleArray[iBtchIndex].partperCont,
         OPTM_MIN_FILLPRCNT: this.autoRuleArray[iBtchIndex].minfill,
         OPTM_CREATEDBY: localStorage.getItem("UserId")
@@ -238,6 +254,12 @@ export class CARUpdateComponent implements OnInit {
     }
     else if (this.lookupfor == "CTList") {
       this.CAR_ContainerType = $event[0];
+    }else if(this.lookupfor == "ItemsList"){
+      for (let i = 0; i < this.autoRuleArray.length; ++i) {
+        if (i === this.index) {
+          this.autoRuleArray[i].itemcode = $event[0];
+        }
+      }
     }
   }
 
@@ -274,6 +296,12 @@ export class CARUpdateComponent implements OnInit {
 
 
   AddRow(){
+    if(this.CAR_PackType == "Single Item"){
+      if(this.autoRuleArray.length >= 1){
+        return;
+      }
+    }else{
+    }
     this.autoRuleArray.push(new AutoRuleModel("", 0, 0, 0));
   }
 
@@ -307,6 +335,35 @@ export class CARUpdateComponent implements OnInit {
         this.autoRuleArray[i].minfill = value;
       }
     }
+  }
+
+  GetItemCodeList(index) {
+    this.showLoader = true;
+    this.commonservice.GetItemCodeList().subscribe(
+      data => {
+        this.showLoader = false;
+        if (data != undefined && data.length > 0) {
+          if (data[0].ErrorMsg == "7001") {
+            this.commonservice.RemoveLicenseAndSignout(this.toastr, this.router,
+              this.translate.instant("CommonSessionExpireMsg"));
+            return;
+          }
+          this.hideLookup = false;
+          this.serviceData = data;
+          this.lookupfor = "ItemsList";
+        } else {
+          this.toastr.error('', this.translate.instant("CommonNoDataAvailableMsg"));
+        }
+      },
+      error => {
+        if (error.error.ExceptionMessage != null && error.error.ExceptionMessage != undefined) {
+          this.commonservice.unauthorizedToken(error, this.translate.instant("token_expired"));
+        }
+        else {
+          this.toastr.error('', error);
+        }
+      }
+    );
   }
 
 }
