@@ -33,7 +33,8 @@ export class CTRMasterService {
         OPTM_CONTAINER_TYPE: OPTM_CONTAINER_TYPE,
         OPTM_PARENT_CONTTYPE: OPTM_PARENT_CONTTYPE,
         OPTM_CONT_PERPARENT: OPTM_CONT_PERPARENT, 
-        OPTM_CONT_PARTOFPARENT: OPTM_CONT_PARTOFPARENT
+        OPTM_CONT_PARTOFPARENT: OPTM_CONT_PARTOFPARENT,
+        OPTM_CREATEDBY: localStorage.getItem("UserId")
       }])
     };
     return this.httpclient.post(this.config_params.service_url + "/api/Shipment/InsertIntoContainerRelationship", jObject, this.commonService.httpOptions);
@@ -46,7 +47,8 @@ export class CTRMasterService {
         OPTM_CONTAINER_TYPE: OPTM_CONTAINER_TYPE,
         OPTM_PARENT_CONTTYPE: OPTM_PARENT_CONTTYPE,
         OPTM_CONT_PERPARENT: OPTM_CONT_PERPARENT, 
-        OPTM_CONT_PARTOFPARENT: OPTM_CONT_PARTOFPARENT
+        OPTM_CONT_PARTOFPARENT: OPTM_CONT_PARTOFPARENT,
+        OPTM_MODIFIEDBY: localStorage.getItem("UserId")
       }])
     };
     return this.httpclient.post(this.config_params.service_url + "/api/Shipment/UpdateContainerRelationship", jObject, this.commonService.httpOptions);

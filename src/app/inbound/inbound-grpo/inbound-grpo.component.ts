@@ -642,34 +642,34 @@ export class InboundGRPOComponent implements OnInit, AfterViewInit {
   }
 
   getAutoLot(itemCode: string, qty: any) {
-    this.inboundService.getAutoLot(itemCode, this.tracking, qty).subscribe(
-      (data: any) => {
-        console.log(data);
-        if (data.Table != undefined) {
-          data.Table = data.Table;
-        } else if (data.LICDATA != undefined && data.LICDATA[0].ErrorMsg == "7001") {
-          this.commonservice.RemoveLicenseAndSignout(this.toastr, this.router,
-            this.translate.instant("CommonSessionExpireMsg"));
-          return;
-        }
-        this.AddUpdateBatSerNo(data.Table);
-        // if (data.Table.length > 0) {
-        //   this.AddUpdateBatSerNo(data.Table);
-        // }
-        // else {
+    // this.inboundService.getAutoLot(itemCode, this.tracking, qty).subscribe(
+    //   (data: any) => {
+    //     console.log(data);
+    //     if (data.Table != undefined) {
+    //       data.Table = data.Table;
+    //     } else if (data.LICDATA != undefined && data.LICDATA[0].ErrorMsg == "7001") {
+    //       this.commonservice.RemoveLicenseAndSignout(this.toastr, this.router,
+    //         this.translate.instant("CommonSessionExpireMsg"));
+    //       return;
+    //     }
+    //     this.AddUpdateBatSerNo(data.Table);
+    //     // if (data.Table.length > 0) {
+    //     //   this.AddUpdateBatSerNo(data.Table);
+    //     // }
+    //     // else {
 
-        // }
-      },
-      error => {
-        console.log("Error: ", error);
-        if (error.error.ExceptionMessage != null && error.error.ExceptionMessage != undefined) {
-          this.commonservice.unauthorizedToken(error, this.translate.instant("token_expired"));
-        }
-        else {
-          this.toastr.error('', error);
-        }
-      }
-    );
+    //     // }
+    //   },
+    //   error => {
+    //     console.log("Error: ", error);
+    //     if (error.error.ExceptionMessage != null && error.error.ExceptionMessage != undefined) {
+    //       this.commonservice.unauthorizedToken(error, this.translate.instant("token_expired"));
+    //     }
+    //     else {
+    //       this.toastr.error('', error);
+    //     }
+    //   }
+    // );
   }
 
   addQuantity() {

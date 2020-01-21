@@ -20,6 +20,7 @@ import { InputsModule } from '@progress/kendo-angular-inputs';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { PalletizationModule } from './palletization/palletization.module';
+import { CommonLookupComponent } from './common/common-lookup/common-lookup.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }

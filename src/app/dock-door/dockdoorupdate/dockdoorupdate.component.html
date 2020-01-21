@@ -14,8 +14,8 @@
                       <div class="col-sm-9">
                           <div class="input-group input-group-sm">
                               <input type="text" class="form-control form-control-sm" name="DD_ID" [(ngModel)]="DD_ID" placeholder="{{'DD_ID'|translate}}"
-                                  (blur)="OnDDIDChange()" #DDIDInputField [disabled]=showGRPOGridAndBtn id="InboundDetailVendScanInputField">
-                              <div class="input-group-append">
+                                  (blur)="OnDDIDChange()" #DDIDInputField [disabled]=isUpdate id="InboundDetailVendScanInputField">
+                              <!-- <div class="input-group-append">
                                   <button tabIndex="-1" class="k-button k-primary btn" type="button" (mousedown)="onDDIDLookupClick()" >
                                       <i class="opti-icon-hammenu"></i>
                                   </button>
@@ -24,7 +24,7 @@
                                   <button tabIndex="-1" type="button" id="inboundDetailVendorScanButton" class="btn btn-light k-button btn-sm btn-transparent btn-icon separate-btn p-0">
                                       <i class="opti-icon-qr-code fs-24"></i>
                                   </button>
-                          </div>
+                          </div> -->
                       </div>
                   </div>
                   </div>
@@ -33,9 +33,8 @@
                     <label for="inputPassword" class="col-sm-3 col-form-label">{{'DD_DESC'|translate}}</label>
                     <div class="col-sm-9">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control form-control-sm" name="DD_DESC" [(ngModel)]="DD_DESC" placeholder="{{'DD_DESC'|translate}}"
-                                (blur)="OnDD_DESCChange()" #VendScanInputField [disabled]=showGRPOGridAndBtn id="InboundDetailVendScanInputField">
-                            <div class="input-group-append">
+                            <input type="text" class="form-control form-control-sm" name="DD_DESC" [(ngModel)]="DD_DESC" placeholder="{{'DD_DESC'|translate}}">
+                            <!-- <div class="input-group-append">
                                 <button tabIndex="-1" class="k-button k-primary btn" type="button" (mousedown)="onDDDescLookupClick()" [disabled]=showGRPOGridAndBtn>
                                     <i class="opti-icon-hammenu"></i>
                                 </button>
@@ -44,7 +43,7 @@
                                 <button tabIndex="-1" type="button" id="inboundDetailVendorScanButton" class="btn btn-light k-button btn-sm btn-transparent btn-icon separate-btn p-0">
                                     <i class="opti-icon-qr-code fs-24"></i>
                                 </button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 </div>
@@ -62,7 +61,7 @@
                   <button class="btn btn-outline-secondary btn-sm btn-transparent btn-icon mr-1" (click)="onCancelClick()" type="button">
                           <i class="opti-icon-arrow-back"></i>
                       </button>
-              <button class="btn btn-success k-button btn-sm btn-icon-with-text" type="button" (click)="OnAddUpdateClick()">
+              <button class="btn btn-success k-button btn-sm btn-icon-with-text" type="button" (click)="onAddUpdateClick()">
                   <span class="k-icon k-i-check" role="presentation"></span> {{BtnTitle}}</button>
 
             

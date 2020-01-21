@@ -83,12 +83,12 @@ export class InboundPolistComponent implements OnInit {
               this.translate.instant("CommonSessionExpireMsg"));
             return;
           }
-          if(data[0].RESULT == "Data Saved"){
+          if(data[0].RESULT == this.translate.instant("DataSaved")){
             this.toastr.error('', data[0].RESULT);
           }else{
             this.toastr.error('', data[0].RESULT);
           }
-          this.inboundMasterComponent.inboundComponent = 1;
+          // this.inboundMasterComponent.inboundComponent = 1;
         } else {
           this.toastr.error('', this.translate.instant("CommonNoDataAvailableMsg"));
         }
@@ -117,7 +117,12 @@ export class InboundPolistComponent implements OnInit {
               this.translate.instant("CommonSessionExpireMsg"));
             return;
           }
-          this.inboundMasterComponent.inboundComponent = 1;
+          if(data[0].RESULT == this.translate.instant("DataSaved")){
+            this.toastr.error('', data[0].RESULT);
+            this.inboundMasterComponent.inboundComponent = 1;
+          }else{
+            this.toastr.error('', data[0].RESULT);
+          }
         } else {
           this.toastr.error('', this.translate.instant("CommonNoDataAvailableMsg"));
         }

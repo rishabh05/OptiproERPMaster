@@ -15,15 +15,36 @@ export class DockdoorService {
     this.config_params = JSON.parse(sessionStorage.getItem('ConfigData'));
    }
 
-   getDockDoorList(): Observable<any> {
+   InsertIntoDockDoor(OPTM_DOCKDOORID: string, OPTM_DESC:string): Observable<any> {
     let jObject = {
-      GoodsReceiptToken: JSON.stringify([{
-        UserId: '',
-        CompanyDBId: localStorage.getItem("CompID"), WhseCode: localStorage.getItem("whseId"),
-        FuturePO: false, PO: "", GUID: localStorage.getItem("GUID"),
-        UsernameForLic: localStorage.getItem("UserId")
+      Shipment: JSON.stringify([{
+        CompanyDBId: localStorage.getItem("CompID"),
+        OPTM_DOCKDOORID: OPTM_DOCKDOORID,
+        OPTM_DESC: OPTM_DESC,
+        OPTM_CREATEDBY: localStorage.getItem("UserId")
       }])
     };
-    return this.httpclient.post(this.config_params.service_url + "/api/GoodReceiptPO/GetVendorList", jObject, this.commonService.httpOptions);
+    return this.httpclient.post(this.config_params.service_url + "/api/Shipment/InsertIntoDockDoor", jObject, this.commonService.httpOptions);
+  }
+
+  GetDataForDockDoor(): Observable<any> {
+    let jObject = {
+      Shipment: JSON.stringify([{
+        CompanyDBId: localStorage.getItem("CompID")       
+      }])
+    };
+    return this.httpclient.post(this.config_params.service_url + "/api/Shipment/GetDataForDockDoor", jObject, this.commonService.httpOptions);
+  }
+
+  UpdateDockDoor(OPTM_DOCKDOORID: string, OPTM_DESC:string): Observable<any> {
+    let jObject = {
+      Shipment: JSON.stringify([{
+        CompanyDBId: localStorage.getItem("CompID"),
+        OPTM_DOCKDOORID: OPTM_DOCKDOORID,
+        OPTM_DESC: OPTM_DESC,
+        OPTM_MODIFIEDBY: localStorage.getItem("UserId")
+      }])
+    };
+    return this.httpclient.post(this.config_params.service_url + "/api/Shipment/UpdateDockDoor", jObject, this.commonService.httpOptions);
   }
 }

@@ -39,7 +39,7 @@ export class InboundDetailsComponent implements OnInit {
 
   GetDataForContainerType() {
     this.showLoader = true;
-    this.inboundService.GetDataForContainerType().subscribe(
+    this.commonservice.GetDataForContainerType().subscribe(
       (data: any) => {
         this.showLoader = false;
         if (data != undefined) {
@@ -68,11 +68,38 @@ export class InboundDetailsComponent implements OnInit {
   }
 
 
+  DeleteFromContainerType(OPTM_CONTAINER_TYPE: string) {
+    this.showLoader = true;
+    this.inboundService.DeleteFromContainerType(OPTM_CONTAINER_TYPE).subscribe(
+      (data: any) => {
+        this.showLoader = false;
+        if (data != undefined) {
+          if (data.LICDATA != undefined && data.LICDATA[0].ErrorMsg == "7001") {
+            this.commonservice.RemoveLicenseAndSignout(this.toastr, this.router,
+              this.translate.instant("CommonSessionExpireMsg"));
+            return;
+          }
+          this.GetDataForContainerType();
+        } else {
+          this.toastr.error('', this.translate.instant("CommonNoDataAvailableMsg"));
+        }
+      },
+      error => {
+        this.showLoader = false;
+        if (error.error.ExceptionMessage != null && error.error.ExceptionMessage != undefined) {
+          this.commonservice.unauthorizedToken(error, this.translate.instant("token_expired"));
+        }
+        else {
+          this.toastr.error('', error);
+        }
+      }
+    );
+  }
+
   getLookupValue(event) {
     localStorage.setItem("CT_ROW", JSON.stringify(event));
     this.inboundMasterComponent.inboundComponent = 2;
   }
-
 
   OnCancelClick() {
     this.router.navigate(['home/dashboard']);
@@ -83,11 +110,15 @@ export class InboundDetailsComponent implements OnInit {
     this.inboundMasterComponent.inboundComponent = 2;
   }
 
-  onEditClick(){
+  onEditClick(row){
     this.inboundMasterComponent.inboundComponent = 2;
   }
 
-  onDeleteRowClick(){
-    this.inboundMasterComponent.inboundComponent = 2;
+  onDeleteRowClick(event){
+    this.DeleteFromContainerType(event[0]);
+  }
+
+  OnDeleteSelectedClick(){
+    
   }
 }

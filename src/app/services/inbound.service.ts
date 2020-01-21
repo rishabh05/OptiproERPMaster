@@ -51,26 +51,16 @@ export class InboundService {
     return this.httpclient.post(this.config_params.service_url + "/api/Shipment/UpdateContainerType", jObject, this.commonService.httpOptions);
   }
 
-  GetDataForContainerType(): Observable<any> {
+  
+
+  DeleteFromContainerType(OPTM_CONTAINER_TYPE: string): Observable<any> {
     let jObject = {
       Shipment: JSON.stringify([{
+        OPTM_CONTAINER_TYPE: OPTM_CONTAINER_TYPE,
         CompanyDBId: localStorage.getItem("CompID")
       }])
     };
-    return this.httpclient.post(this.config_params.service_url + "/api/Shipment/GetDataForContainerType", jObject, this.commonService.httpOptions);
-  }
-
-  getAutoLot(itemCode: string, tracking: string, quantity: any): Observable<any> {
-    let jObject = {
-      GoodsReceiptToken: JSON.stringify([{
-        UserId: '',
-        CompanyDBId: localStorage.getItem("CompID"),
-        ItemCode: itemCode,
-        TRACKING: tracking,
-        QUANTITY: quantity,
-      }])
-    };
-    return this.httpclient.post(this.config_params.service_url + "/api/GoodReceiptPO/GetAutoLot", jObject, this.commonService.httpOptions);
+    return this.httpclient.post(this.config_params.service_url + "/api/Shipment/DeleteFromContainerType", jObject, this.commonService.httpOptions);
   }
 
   getUOMs(itemCode: string): Observable<any> {

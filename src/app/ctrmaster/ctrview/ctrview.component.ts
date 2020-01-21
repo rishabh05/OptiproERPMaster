@@ -44,7 +44,7 @@ getContainerRelationship() {
             return;
           }
           this.showLookupLoader = false;
-          this.serviceData = data.Table;
+          this.serviceData = data;
           this.lookupfor = "CTRList";
         } else {
           this.toastr.error('', this.translate.instant("CommonNoDataAvailableMsg"));

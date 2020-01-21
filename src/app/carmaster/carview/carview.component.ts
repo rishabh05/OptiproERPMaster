@@ -43,8 +43,8 @@ export class CARViewComponent implements OnInit {
             return;
           }
           this.showLookupLoader = false;
-          this.serviceData = data.Table;
-          this.lookupfor = "CTRList";
+          this.serviceData = data;
+          this.lookupfor = "CARList";
         } else {
           this.toastr.error('', this.translate.instant("CommonNoDataAvailableMsg"));
         }

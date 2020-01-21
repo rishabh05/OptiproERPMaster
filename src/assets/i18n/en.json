@@ -50,13 +50,13 @@
   "CT_Max_Width":"Max Weight", 
   "CT_Add":"Add", 
   "CT_Update":"Update", 
-  "CT_DeleteAll":"Delete All", 
-  "CT_ContainerType_Blank_Msg":"Container Type cann't blank.", 
+  "CT_DeleteAll":"Delete", 
+  "CT_ContainerType_Blank_Msg":"Container Type can't blank.", 
 
   "CTR_Parent_CT":"Parent Container Type", 
   "CTRContainersPerParent":"Containers Per Parent", 
   "CTRContainerPartofParent":"Container Part of Parent", 
-  "CTR_ParentContainerType_Blank_Msg":"Parent Container Type cann't blank.", 
+  "CTR_ParentContainerType_Blank_Msg":"Parent Container Type can't blank.", 
 
   "CAR_CPackRule":"Container Pack Rule", 
   "CAR_PackType":"Pack Type", 
@@ -64,10 +64,15 @@
   "CAR_ItemCode":"Item Code", 
   "CAR_AddPartsToContainer":"Add Parts To Container", 
   "CAR_MinFillPercent":"Min Fill Percent", 
-
+  "CAR_Pack_Type_Blank_Msg":"Pack Type can't blank.", 
+  "CAR_ItemCode_Blank_Msg":"Item Code can't blank.", 
+  "CAR_ContainerPackRule_Blank_Msg":"Container Pack Rule can't blank.", 
+  "DockDoorId_Blank_Msg":"Dock Door Id can't blank.", 
+  
   "Edit":"Edit",
   "Copy":"Copy",
   "Delete": "Delete",
+  "DataSaved":"Data Saved",
 
   "3":"Dashboard",
   "Dashboard_AppVersion":"Version: ",
@@ -449,7 +454,7 @@
   "Dock_Door": "Dock Door",
   
   "DD_ID": "Dock Door Id",
-  "DD_DESC": "Dock Door Description",
+  "DD_DESC": "Description",
  
   "Dummy": "Dummy"
 }

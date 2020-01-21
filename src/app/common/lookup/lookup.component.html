@@ -47,14 +47,14 @@
 
     <kendo-grid-column [sortable]="false" title="Action" filter="numeric" [filterable]="false">
         <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-            <button type="button" class="btn btn-danger k-button btn-sm mr-10 " (click)="onEditClick(dataItem)" title="{{'Edit'|translate}}">
+            <button type="button" class="btn btn-danger k-button btn-sm mr-10 " (click)="onEditClick(dataItem)" title="Edit">
                     <i class="k-icon k-i-edit"></i>
             </button>
-            <button type="button" class="btn btn-danger k-button btn-sm mr-10 " (click)="onDeleteRowClick(dataItem)" title="{{'Delete'|translate}}">
+            <button type="button" class="btn btn-danger k-button btn-sm mr-10 " (click)="onDeleteRowClick(dataItem)" title="Delete">
                     <i class="k-icon k-i-delete"></i>
             </button>
 
-            <button type="button" class="btn btn-danger k-button btn-sm mr-10  " (click)="show_association(dataItem)" title="{{'Copy'|translate}}">
+            <button type="button" class="btn btn-danger k-button btn-sm mr-10  " (click)="show_association(dataItem)" title="Copy">
                 <i class="k-icon k-i-copy"></i>
             </button>
         </ng-template>
