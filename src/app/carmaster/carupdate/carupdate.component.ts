@@ -32,7 +32,7 @@ export class CARUpdateComponent implements OnInit {
   showLoader: boolean = false;
   isUpdate: boolean = false;
   hideLookup: boolean = true;
-  index: number=-1;
+  index: number = -1;
 
   constructor(private commonservice: Commonservice, private toastr: ToastrService,
     private translate: TranslateService, private carmainComponent: CARMainComponent,
@@ -49,17 +49,17 @@ export class CARUpdateComponent implements OnInit {
     let Carow = localStorage.getItem("CAR_ROW")
     if (Carow != undefined && Carow != "") {
       this.CTR_ROW = JSON.parse(localStorage.getItem("CAR_ROW"));
+      this.autoRuleArray = (JSON.parse(localStorage.getItem("CAR_Grid_Data"))).OPTM_CONT_AUTORULEDTL;
       this.CAR_CPackRule = this.CTR_ROW[0];
       this.CAR_ContainerType = this.CTR_ROW[1];
-      // this.CAR_PackType = this.CTR_ROW[2];
-      if(this.CTR_ROW[2] == 1){
+      if (this.CTR_ROW[2] == 1) {
         this.CAR_PackType = "Single Item";
-      }else{
+      } else {
         this.CAR_PackType = "Multiple Items";
       }
-      if(this.CTR_ROW[3] == 'Y'){
+      if (this.CTR_ROW[3] == 'Yes') {
         this.CAR_AddPartsToContainer = true;
-      }else{
+      } else {
         this.CAR_AddPartsToContainer = false;
       }
       // this.CAR_ItemCode = this.CTR_ROW[0];
@@ -78,23 +78,49 @@ export class CARUpdateComponent implements OnInit {
   }
 
   validateFields(): boolean {
-    if (this.CAR_ContainerType == '' || this.CAR_ContainerType == undefined) {
-      this.toastr.error('', this.translate.instant("CT_ContainerType_Blank_Msg"));
-      return false;
-    }
-    else if (this.CAR_CPackRule == undefined) {
+    if (this.CAR_CPackRule == undefined) {
       this.toastr.error('', this.translate.instant("CAR_ContainerPackRule_Blank_Msg"));
       return false;
     }
+    else if (this.CAR_ContainerType == '' || this.CAR_ContainerType == undefined) {
+      this.toastr.error('', this.translate.instant("CT_ContainerType_Blank_Msg"));
+      return false;
+    }
+
     else if (this.CAR_PackType == undefined) {
       this.toastr.error('', this.translate.instant("CAR_Pack_Type_Blank_Msg"));
       return false;
     }
+    else if (this.autoRuleArray.length <= 0) {
+      this.toastr.error('', this.translate.instant("CAR_addItemDetail_blank_msg"));
+      return false;
+    }
+    else if (this.autoRuleArray.length > 0) {
+      let sum = 0;
+      for (var iBtchIndex = 0; iBtchIndex < this.autoRuleArray.length; iBtchIndex++) {
+        if (this.autoRuleArray[iBtchIndex].OPTM_MIN_FILLPRCNT == 0) {
+          this.toastr.error('', this.translate.instant("CAR_MinFillPercent_val_msg"));
+          return false;
+        } else if (this.autoRuleArray[iBtchIndex].OPTM_PARTS_PERCONT == 0) {
+          this.toastr.error('', this.translate.instant("CAR_PartsPerContainer_blank_msg"));
+          return false;
+        }
+        sum = sum + this.autoRuleArray[iBtchIndex].OPTM_MIN_FILLPRCNT;
+      }
+      if (sum != 100) {
+        this.toastr.error('', this.translate.instant("CAR_MinFillPercent_val_msg"));
+        return false;
+      }
+    }
     return true;
   }
 
-  OnContainerTypeChange(){
-    if(this.CAR_ContainerType == undefined || this.CAR_ContainerType == ""){
+  updateDropDown(){
+    alert(this.CAR_PackType);
+  }
+
+  OnContainerTypeChange() {
+    if (this.CAR_ContainerType == undefined || this.CAR_ContainerType == "") {
       return;
     }
     this.showLoader = true;
@@ -107,9 +133,9 @@ export class CARUpdateComponent implements OnInit {
               this.translate.instant("CommonSessionExpireMsg"));
             return;
           }
-          if(data.length > 0){
+          if (data.length > 0) {
             this.CAR_ContainerType = data[0].OPTM_CONTAINER_TYPE;
-          }else{
+          } else {
             this.CAR_ContainerType = "";
             this.toastr.error('', this.translate.instant("CommonNoDataAvailableMsg"));
           }
@@ -135,9 +161,9 @@ export class CARUpdateComponent implements OnInit {
       return;
     }
     if (this.BtnTitle == this.translate.instant("CT_Update")) {
-       this.updateContainerAutoRule();
+      this.updateContainerAutoRule();
     } else {
-       this.addContainerAutoRule();
+      this.addContainerAutoRule();
     }
   }
 
@@ -145,7 +171,7 @@ export class CARUpdateComponent implements OnInit {
     var AutoRuleData: any = {};
     AutoRuleData.Header = [];
     AutoRuleData.Details = [];
-    var AutoRuleData = this.prepareContainerAutoRule(AutoRuleData); // current data only.
+    var AutoRuleData = this.prepareUpdateContainerAutoRule(AutoRuleData); // current data only.
     this.UpdateContainerAutoRule(AutoRuleData);
   }
 
@@ -157,6 +183,46 @@ export class CARUpdateComponent implements OnInit {
     this.InsertIntoContainerAutoRule(AutoRuleData);
   }
 
+  prepareUpdateContainerAutoRule(oSubmitPOLotsObj: any): any {
+    // oSubmitPOLotsObj = this.manageRecords(oSubmitPOLotsObj);
+    // if (localStorage.getItem("Line") == null || localStorage.getItem("Line") == undefined ||
+    //   localStorage.getItem("Line") == "") {
+    //   localStorage.setItem("Line", "0");
+    // }
+
+    let packtype = 1;
+    if (this.CAR_PackType == "Single Item") {
+      packtype = 1;
+    } else {
+      packtype = 2;
+    }
+
+    let addPartToCont = 'N'
+    if (this.CAR_AddPartsToContainer == true) {
+      addPartToCont = "Y";
+    }
+
+    oSubmitPOLotsObj.Header.push({
+      OPTM_RULEID: this.CAR_CPackRule,
+      OPTM_CONTTYPE: this.CAR_ContainerType,
+      CompanyDBId: localStorage.getItem("CompID"),
+      OPTM_PACKTYPE: packtype,
+      OPTM_ADD_TOCONT: addPartToCont,
+      OPTM_CREATEDBY: localStorage.getItem("UserId")
+    });
+
+    for (var iBtchIndex = 0; iBtchIndex < this.autoRuleArray.length; iBtchIndex++) {
+      oSubmitPOLotsObj.Details.push({
+        OPTM_ITEMCODE: this.autoRuleArray[iBtchIndex].OPTM_ITEMCODE,
+        OPTM_RULEID: this.CAR_CPackRule,
+        OPTM_PARTS_PERCONT: this.autoRuleArray[iBtchIndex].OPTM_PARTS_PERCONT,
+        OPTM_MIN_FILLPRCNT: this.autoRuleArray[iBtchIndex].OPTM_MIN_FILLPRCNT,
+        OPTM_MODIFIEDBY: localStorage.getItem("UserId")
+      });
+    }
+    return oSubmitPOLotsObj;
+  }
+
   prepareContainerAutoRule(oSubmitPOLotsObj: any): any {
     // oSubmitPOLotsObj = this.manageRecords(oSubmitPOLotsObj);
     // if (localStorage.getItem("Line") == null || localStorage.getItem("Line") == undefined ||
@@ -165,27 +231,32 @@ export class CARUpdateComponent implements OnInit {
     // }
 
     let packtype = 1;
-    if(this.CAR_PackType == "Single Item"){
+    if (this.CAR_PackType == "Single Item") {
       packtype = 1;
-    }else{
+    } else {
       packtype = 2;
     }
+
+    let addPartToCont = 'N'
+    if (this.CAR_AddPartsToContainer == true) {
+      addPartToCont = "Y";
+    }
+
     oSubmitPOLotsObj.Header.push({
-      
       OPTM_RULEID: this.CAR_CPackRule,
       OPTM_CONTTYPE: this.CAR_ContainerType,
       CompanyDBId: localStorage.getItem("CompID"),
       OPTM_PACKTYPE: packtype,
-      OPTM_ADD_TOCONT: this.CAR_AddPartsToContainer,
+      OPTM_ADD_TOCONT: addPartToCont,
       OPTM_CREATEDBY: localStorage.getItem("UserId")
     });
 
     for (var iBtchIndex = 0; iBtchIndex < this.autoRuleArray.length; iBtchIndex++) {
       oSubmitPOLotsObj.Details.push({
-        OPTM_ITEMCODE: this.autoRuleArray[iBtchIndex].itemcode,
+        OPTM_ITEMCODE: this.autoRuleArray[iBtchIndex].OPTM_ITEMCODE,
         OPTM_RULEID: this.CAR_CPackRule,
-        OPTM_PARTS_PERCONT: this.autoRuleArray[iBtchIndex].partperCont,
-        OPTM_MIN_FILLPRCNT: this.autoRuleArray[iBtchIndex].minfill,
+        OPTM_PARTS_PERCONT: this.autoRuleArray[iBtchIndex].OPTM_PARTS_PERCONT,
+        OPTM_MIN_FILLPRCNT: this.autoRuleArray[iBtchIndex].OPTM_MIN_FILLPRCNT,
         OPTM_CREATEDBY: localStorage.getItem("UserId")
       });
     }
@@ -254,10 +325,10 @@ export class CARUpdateComponent implements OnInit {
     }
     else if (this.lookupfor == "CTList") {
       this.CAR_ContainerType = $event[0];
-    }else if(this.lookupfor == "ItemsList"){
+    } else if (this.lookupfor == "ItemsList") {
       for (let i = 0; i < this.autoRuleArray.length; ++i) {
         if (i === this.index) {
-          this.autoRuleArray[i].itemcode = $event[0];
+          this.autoRuleArray[i].OPTM_ITEMCODE = $event[0];
         }
       }
     }
@@ -295,12 +366,13 @@ export class CARUpdateComponent implements OnInit {
   }
 
 
-  AddRow(){
-    if(this.CAR_PackType == "Single Item"){
-      if(this.autoRuleArray.length >= 1){
+  AddRow() {
+    if (this.CAR_PackType == "Single Item") {
+      if (this.autoRuleArray.length >= 1) {
         return;
       }
-    }else{
+    } else {
+
     }
     this.autoRuleArray.push(new AutoRuleModel("", 0, 0, 0));
   }
@@ -308,7 +380,7 @@ export class CARUpdateComponent implements OnInit {
   updateRuleId(lotTemplateVar, value, rowindex, gridData: any) {
     for (let i = 0; i < this.autoRuleArray.length; ++i) {
       if (i === rowindex) {
-        this.autoRuleArray[i].ruleId = value;
+        this.autoRuleArray[i].OPTM_RULEID = value;
       }
     }
   }
@@ -316,7 +388,7 @@ export class CARUpdateComponent implements OnInit {
   updateItemCode(lotTemplateVar, value, rowindex, gridData: any) {
     for (let i = 0; i < this.autoRuleArray.length; ++i) {
       if (i === rowindex) {
-        this.autoRuleArray[i].itemcode = value;
+        this.autoRuleArray[i].OPTM_ITEMCODE = value;
       }
     }
   }
@@ -324,7 +396,7 @@ export class CARUpdateComponent implements OnInit {
   updatePartperCont(lotTemplateVar, value, rowindex, gridData: any) {
     for (let i = 0; i < this.autoRuleArray.length; ++i) {
       if (i === rowindex) {
-        this.autoRuleArray[i].partperCont = value;
+        this.autoRuleArray[i].OPTM_PARTS_PERCONT = value;
       }
     }
   }
@@ -332,13 +404,14 @@ export class CARUpdateComponent implements OnInit {
   updateMinfill(lotTemplateVar, value, rowindex, gridData: any) {
     for (let i = 0; i < this.autoRuleArray.length; ++i) {
       if (i === rowindex) {
-        this.autoRuleArray[i].minfill = value;
+        this.autoRuleArray[i].OPTM_MIN_FILLPRCNT = value;
       }
     }
   }
 
   GetItemCodeList(index) {
     this.showLoader = true;
+    this.index = index;
     this.commonservice.GetItemCodeList().subscribe(
       data => {
         this.showLoader = false;

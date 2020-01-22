@@ -769,13 +769,13 @@ export class CommonLookupComponent implements OnInit {
   showItemCodeList() {
     this.table_head = [
       {
-        field: 'ITEMCODE',
+        field: 'ItemCode',
         title: this.translate.instant("ItemCode"),
         type: 'text',
         width: '100'
       },
       {
-        field: 'ITEMNAME',
+        field: 'ItemName',
         title: this.translate.instant("ItemName"),
         type: 'text',
         width: '100'

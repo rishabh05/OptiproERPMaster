@@ -495,6 +495,8 @@ export class LookupComponent implements OnInit {
       {
         field: 'OPTM_RULEID',
         title: this.translate.instant("CAR_CPackRule"),
+        headerClass: 'text-right',
+        class: 'text-right',
         type: 'numeric',
         width: '150'
       },
@@ -508,6 +510,8 @@ export class LookupComponent implements OnInit {
       {
         field: 'OPTM_PACKTYPE',
         title: this.translate.instant("CAR_PackType"),
+        headerClass: 'text-right',
+        class: 'text-right',
         type: 'numeric',
         width: '150'
       },
@@ -848,13 +852,13 @@ export class LookupComponent implements OnInit {
   showItemCodeList() {
     this.table_head = [
       {
-        field: 'ITEMCODE',
+        field: 'ItemCode',
         title: this.translate.instant("ItemCode"),
         type: 'text',
         width: '100'
       },
       {
-        field: 'ITEMNAME',
+        field: 'ItemName',
         title: this.translate.instant("ItemName"),
         type: 'text',
         width: '100'
