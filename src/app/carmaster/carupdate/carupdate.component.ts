@@ -105,7 +105,7 @@ export class CARUpdateComponent implements OnInit {
           this.toastr.error('', this.translate.instant("CAR_PartsPerContainer_blank_msg"));
           return false;
         }
-        sum = sum + this.autoRuleArray[iBtchIndex].OPTM_MIN_FILLPRCNT;
+        sum = Number(sum) + Number(this.autoRuleArray[iBtchIndex].OPTM_MIN_FILLPRCNT);
       }
       if (sum != 100) {
         this.toastr.error('', this.translate.instant("CAR_MinFillPercent_val_msg"));
@@ -208,7 +208,7 @@ export class CARUpdateComponent implements OnInit {
       CompanyDBId: localStorage.getItem("CompID"),
       OPTM_PACKTYPE: packtype,
       OPTM_ADD_TOCONT: addPartToCont,
-      OPTM_CREATEDBY: localStorage.getItem("UserId")
+      OPTM_MODIFIEDBY: localStorage.getItem("UserId")
     });
 
     for (var iBtchIndex = 0; iBtchIndex < this.autoRuleArray.length; iBtchIndex++) {
@@ -275,6 +275,12 @@ export class CARUpdateComponent implements OnInit {
               this.translate.instant("CommonSessionExpireMsg"));
             return;
           }
+          if(data[0].RESULT == this.translate.instant("DataSaved")){
+            this.toastr.error('', data[0].RESULT);
+            this.carmainComponent.carComponent = 1;
+          }else{
+            this.toastr.error('', data[0].RESULT);
+          }
         } else {
           this.toastr.error('', this.translate.instant("CommonNoDataAvailableMsg"));
         }
@@ -301,6 +307,12 @@ export class CARUpdateComponent implements OnInit {
             this.commonservice.RemoveLicenseAndSignout(this.toastr, this.router,
               this.translate.instant("CommonSessionExpireMsg"));
             return;
+          }
+          if(data[0].RESULT == this.translate.instant("DataSaved")){
+            this.toastr.error('', data[0].RESULT);
+            this.carmainComponent.carComponent = 1;
+          }else{
+            this.toastr.error('', data[0].RESULT);
           }
         } else {
           this.toastr.error('', this.translate.instant("CommonNoDataAvailableMsg"));
@@ -437,6 +449,11 @@ export class CARUpdateComponent implements OnInit {
         }
       }
     );
+  }
+
+  openConfirmForDelete(rowIndex, gridItem){
+    this.autoRuleArray.splice(rowIndex, 1);
+    gridItem = this.autoRuleArray;
   }
 
 }
