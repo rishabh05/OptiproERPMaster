@@ -18,9 +18,9 @@ export class DockdoorviewComponent implements OnInit {
   serviceData: any[];
   lookupfor: string;
   showLoader: boolean = false;
-  @ViewChild('LookupComponent') look: LookupComponent;
+  @ViewChild('LookupComponent') lookupObj: LookupComponent;
 
-  constructor(private translate: TranslateService,private commonservice: Commonservice, private toastr: ToastrService, private ddmainComponent: DockdoormainComponent, private ddService: DockdoorService, private router: Router) { 
+  constructor(private translate: TranslateService,private commonservice: Commonservice, private toastr: ToastrService, private ddmainComponent: DockdoormainComponent, private LookupComp: LookupComponent, private ddService: DockdoorService, private router: Router) { 
     let userLang = navigator.language.split('-')[0];
     userLang = /(fr|en)/gi.test(userLang) ? userLang : 'fr';
     translate.use(userLang);
@@ -64,31 +64,49 @@ export class DockdoorviewComponent implements OnInit {
 
   getLookupValue(event) {
     localStorage.setItem("DD_ROW", JSON.stringify(event));
+    localStorage.setItem("Action", "");
     this.ddmainComponent.ddComponent = 2;
   }
 
+  onCopyItemClick(event) {
+    localStorage.setItem("DD_ROW", JSON.stringify(event));
+    localStorage.setItem("Action", "copy");
+    this.ddmainComponent.ddComponent = 2;
+  }
+  
   OnCancelClick() {
     this.router.navigate(['home/dashboard']);
   }
 
   OnAddClick(){
     localStorage.setItem("DD_ROW", "");
+    localStorage.setItem("Action", "");
     this.ddmainComponent.ddComponent = 2;
   }
 
-  OnDeleteSelected(){
-    // this.LookupComponent.seleks
-    this.look.selectedValues;
-    this.ddmainComponent.ddComponent = 2;
+  OnDeleteSelected(event){
+    var ddDeleteArry: any[] = [];
+    for(var i=0; i<event.length; i++){
+      ddDeleteArry.push({
+        OPTM_DOCKDOORID: event[i].OPTM_DOCKDOORID,
+        CompanyDBId: localStorage.getItem("CompID")
+      });
+    }
+    this.DeleteFromDockDoor(ddDeleteArry);
   }
 
   onDeleteRowClick(event){
-    this.DeleteFromDockDoor(event[0]);
+    var ddDeleteArry: any[] = [];
+      ddDeleteArry.push({
+        OPTM_DOCKDOORID: event[0],
+        CompanyDBId: localStorage.getItem("CompID")
+      });
+    this.DeleteFromDockDoor(ddDeleteArry);
   }
 
-  DeleteFromDockDoor(DDId){
+  DeleteFromDockDoor(ddDeleteArry){
     this.showLoader = true;
-    this.ddService.DeleteFromDockDoor(DDId).subscribe(
+    this.ddService.DeleteFromDockDoor(ddDeleteArry).subscribe(
       (data: any) => {
         this.showLoader = false;
         if (data != undefined) {

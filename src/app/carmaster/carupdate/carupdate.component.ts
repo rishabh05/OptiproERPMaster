@@ -62,11 +62,13 @@ export class CARUpdateComponent implements OnInit {
       } else {
         this.CAR_AddPartsToContainer = false;
       }
-      // this.CAR_ItemCode = this.CTR_ROW[0];
-      // this.CAR_PartsPerContainer = this.CTR_ROW[0];
-      // this.CAR_MinFillPercent = this.CTR_ROW[0];
-      this.isUpdate = true;
-      this.BtnTitle = this.translate.instant("CT_Update");
+      if(localStorage.getItem("Action") == "copy"){
+        this.isUpdate = false;
+        this.BtnTitle = this.translate.instant("CT_Add");
+      }else{
+        this.isUpdate = true;
+        this.BtnTitle = this.translate.instant("CT_Update");
+      }
     } else {
       this.BtnTitle = this.translate.instant("CT_Add");
       this.isUpdate = false;
